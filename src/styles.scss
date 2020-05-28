@@ -1,0 +1,153 @@
+@import url("https://fonts.googleapis.com/css2?family=Muli&family=Rokkitt:wght@700&display=swap");
+
+$powder-color: #f8efef;
+$muted-color: #838a9e;
+$gray-color: #cad6e4;
+$link-color: #0c6787;
+$lila-color: #4c5c96;
+
+body {
+  background-color: $powder-color;
+}
+
+/* Typography */
+
+%muli-normal {
+  font-family: "Muli", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+%rokkit-bold {
+  font-family: "Rokkitt", serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+/* Flex Utils */
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-justify-even {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.self-align-center {
+  align-self: center;
+}
+
+/* Page elements */
+
+.container-base {
+  background-color: #fff;
+  height: 608px;
+}
+
+.container-left {
+  display: flex;
+  justify-content: center;
+  padding-top: 64px;
+  width: 608px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.container-right {
+  // background: url("./assets/images/water.png");
+  background-color: $lila-color;
+  width: 449px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.container-inner {
+  width: 430px;
+}
+
+.muli-font {
+  @extend %muli-normal;
+}
+
+.title {
+  @extend %rokkit-bold;
+  font-size: 36px;
+  line-height: 41px;
+  margin: 0;
+  color: #161843;
+}
+
+.subtitle {
+  @extend %muli-normal;
+  font-size: 16px;
+  line-height: 23px;
+  color: #161843;
+  margin-bottom: 52px;
+}
+
+.text {
+  @extend %muli-normal;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.btn-wide {
+  width: 207px;
+  height: 55px;
+}
+
+.muted {
+  color: $muted-color;
+}
+
+.link {
+  @extend %muli-normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: $link-color;
+}
+
+.divider {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  width: 430px;
+  height: 0px;
+
+  border: 1px solid $gray-color;
+}
+
+/* Placement utils */
+
+.vh100 {
+  height: 100vh;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.pr-5 {
+  padding-right: 5px;
+}
+
+.txt-big {
+  font-size: 4rem;
+}

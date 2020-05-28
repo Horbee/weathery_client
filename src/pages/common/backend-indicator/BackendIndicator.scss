@@ -1,0 +1,15 @@
+.indicator-container {
+  position: fixed;
+  top: 0;
+  left: -70px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.server-label {
+  transition: all 0.5s ease;
+  &:hover {
+    transform: translateX(70px);
+  }
+}
