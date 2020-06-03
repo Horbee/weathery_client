@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
+import { backendURL } from "../../constants/endpoints";
 import { Nullable } from "../../utils/Nullable";
 import { createErrorToast } from "../../utils/toast/errorToast";
 import { TypedStorage } from "../../utils/typedStorage";
@@ -48,10 +49,13 @@ export const useAuthService = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post<AuthResponse>("/api/auth/login", {
-        email,
-        password
-      });
+      const response = await axios.post<AuthResponse>(
+        backendURL("/api/auth/login"),
+        {
+          email,
+          password
+        }
+      );
       const token = response.data.data;
       const decoded = jwt.decode(token) as AccessTokenProps;
       setAuth({
@@ -76,7 +80,7 @@ export const useAuthService = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post<AuthResponse>("/api/auth", {
+      const response = await axios.post<AuthResponse>(backendURL("/api/auth"), {
         email,
         password,
         name

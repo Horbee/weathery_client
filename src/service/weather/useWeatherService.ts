@@ -2,6 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
 
+import { backendURL } from "../../constants/endpoints";
 import { Weather, WeatherResponse } from "../../models/WeatherResponse";
 import { Nullable } from "../../utils/Nullable";
 import { createErrorToast } from "../../utils/toast/errorToast";
@@ -20,7 +21,9 @@ export const useWeatherService = () => {
     setStatus(null);
 
     try {
-      const response = await axios.get<{ status: Status }>("/health");
+      const response = await axios.get<{ status: Status }>(
+        backendURL("/health")
+      );
       if (response.data.status === "UP") {
         setStatus(true);
       }
@@ -40,7 +43,7 @@ export const useWeatherService = () => {
   const getWeatherInfo = async (city: string) => {
     try {
       const response = await axios.get<WeatherResponse>(
-        `/api/weather/${city}`,
+        backendURL(`/api/weather/${city}`),
         {
           headers: { Authorization: `Bearer ${TypedStorage.accessToken}` }
         }
