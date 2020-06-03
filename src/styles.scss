@@ -4,6 +4,7 @@ $powder-color: #f8efef;
 $muted-color: #838a9e;
 $gray-color: #cad6e4;
 $link-color: #0c6787;
+$hover-link-color: #007bff;
 $lila-color: #4c5c96;
 
 body {
@@ -74,6 +75,10 @@ body {
   width: 430px;
 }
 
+.container-form {
+  height: 300px;
+}
+
 .muli-font {
   @extend %muli-normal;
 }
@@ -115,6 +120,13 @@ body {
   font-size: 16px;
   line-height: 20px;
   color: $link-color;
+  margin: 0;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $hover-link-color;
+  }
 }
 
 .divider {

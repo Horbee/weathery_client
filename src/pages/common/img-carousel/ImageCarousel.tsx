@@ -14,7 +14,7 @@ const images = [sun, cloud, rain, wind, ice];
 export const ImageCarousel = () => (
   <Carousel controls={false} indicators={false}>
     {images.map((img) => (
-      <Carousel.Item>
+      <Carousel.Item key={img}>
         <Image className="d-block w-100" src={img} />
       </Carousel.Item>
     ))}

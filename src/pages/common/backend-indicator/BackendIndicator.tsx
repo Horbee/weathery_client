@@ -5,17 +5,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { faCloud } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { WeatherServiceContext } from "../../../service/WeatherServiceContext";
+import { WeatherServiceContext } from "../../../service/weather/WeatherServiceContext";
 
 export const BackendIndicator = () => {
   const [sendRequest, setSendRequest] = useState(true);
 
-  const { backendState, checkBackendStatus } = useContext(
-    WeatherServiceContext
-  );
+  const {
+    backendState,
+    checkBackendStatus
+    // createSocketConnection,
+    //latency
+  } = useContext(WeatherServiceContext);
 
   useEffect(() => {
     checkBackendStatus();
+    //createSocketConnection();
+    // eslint-disable-next-line
   }, []);
 
   const color =

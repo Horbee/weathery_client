@@ -1,22 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { FacebookOauthButton } from "../common/FacebookOauthButton";
-import { GoogleOauthButton } from "../common/GoogleOauthButton";
 import { ImageCarousel } from "../common/img-carousel/ImageCarousel";
+import { FacebookOauthButton } from "../common/oauth-button/FacebookOauthButton";
+import { GoogleOauthButton } from "../common/oauth-button/GoogleOauthButton";
 import { LoginForm } from "./LoginForm";
+import { SignupForm } from "./SignupForm";
 
-export const Login = () => {
+export const StartPage = () => {
+  const [toggleForms, setToggleForms] = useState(false);
+
+  const toggleFunction = () => setToggleForms((prev) => !prev);
+
   return (
     <div className="flex-center vh100">
       <div className="container-base container-left">
         <div className="container-inner">
-          <h3 className="title">Log In</h3>
-          <p className="subtitle mt-15">
-            Log in to your account to upload or download pictures, videos or
-            music.
-          </p>
-
-          <LoginForm />
+          {toggleForms ? <SignupForm /> : <LoginForm />}
 
           <div className="divider"></div>
           <p className="flex-center text muted m-10">Or log in with</p>
@@ -29,10 +28,21 @@ export const Login = () => {
 
           {/* <!-- Link to Signup --> */}
           <div className="flex-center m-10">
-            <p className="text m-0 mr-2">Don’t have an account yet?</p>
-            <a href="#" className="link">
-              Sign up
-            </a>
+            {toggleForms ? (
+              <>
+                <p className="text m-0 mr-2">Already have an account?</p>
+                <p className="link" onClick={toggleFunction}>
+                  Sign in
+                </p>
+              </>
+            ) : (
+              <>
+                <p className="text m-0 mr-2">Don’t have an account yet?</p>
+                <p className="link" onClick={toggleFunction}>
+                  Sign up
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
