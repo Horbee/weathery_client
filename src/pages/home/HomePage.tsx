@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
 import { WeatherServiceContext } from "../../service/weather/WeatherServiceContext";
+import { TypedStorage } from "../../utils/typedStorage";
 import { CitySearch } from "./CitySearch";
 import { WeatherGrid } from "./WeatherGrid";
 
@@ -29,8 +30,10 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
-    if (auth.city) {
-      getWeatherInfo(auth.city);
+    const lastCity = TypedStorage.citySearch || auth.city;
+
+    if (lastCity) {
+      getWeatherInfo(lastCity);
     }
     // eslint-disable-next-line
   }, []);
