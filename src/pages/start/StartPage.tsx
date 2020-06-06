@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
 
 import { ImageCarousel } from "../common/img-carousel/ImageCarousel";
@@ -15,7 +16,9 @@ export const StartPage = () => {
     <div className="flex-center vh100">
       <div className="container-base container-left">
         <div className="container-inner">
-          {toggleForms ? <SignupForm /> : <LoginForm />}
+          <AnimatePresence>
+            {toggleForms ? <SignupForm /> : <LoginForm />}
+          </AnimatePresence>
 
           <div className="divider"></div>
           <p className="flex-center text muted m-10">Or log in with</p>

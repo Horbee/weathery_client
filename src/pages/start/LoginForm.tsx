@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useContext } from "react";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
@@ -8,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { loginFormConfig } from "../../form-config/LoginFormConfig";
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
 import { createErrorToast } from "../../utils/toast/errorToast";
+import { yFlipVariatons } from "../common/variants/framerVariants";
 
 export const LoginForm = () => {
   const { login, loading } = useContext(AuthServiceContext);
@@ -19,7 +21,13 @@ export const LoginForm = () => {
   const handleSubmitFailure = () => createErrorToast(errors.password);
 
   return (
-    <div className="container-form">
+    <motion.div
+      className="container-form"
+      variants={yFlipVariatons}
+      initial="initial"
+      animate="enter"
+      key="login"
+    >
       <h3 className="title">Log In</h3>
       <p className="subtitle mt-15">
         Log in to your account to see the actual weather informations.
@@ -67,6 +75,6 @@ export const LoginForm = () => {
           </Button>
         </div>
       </Form>
-    </div>
+    </motion.div>
   );
 };

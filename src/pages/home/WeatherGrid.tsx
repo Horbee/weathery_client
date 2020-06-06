@@ -11,7 +11,8 @@ import { openWeatherMapIconURL } from "../../constants/endpoints";
 import { Weather } from "../../models/WeatherResponse";
 import { decimal } from "../../utils/math";
 import { capitalize } from "../../utils/string";
-import { FlipCard, xFlipVariatons, yFlipVariatons } from "./grid-components/FlipCard";
+import { xFlipVariatons, yFlipVariatons } from "../common/variants/framerVariants";
+import { FlipCard } from "./grid-components/FlipCard";
 import { SingleValueCard } from "./grid-components/SingleValueCard";
 
 interface WeatherGridProps {

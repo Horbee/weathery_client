@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
 import { WeatherServiceContext } from "../../service/weather/WeatherServiceContext";
 import { TypedStorage } from "../../utils/typedStorage";
+import { scaleVariation } from "../common/variants/framerVariants";
 import { CitySearch } from "./CitySearch";
 import { WeatherGrid } from "./WeatherGrid";
 
@@ -50,8 +51,9 @@ export const HomePage = () => {
             className="rounded-button refresh-button"
             onClick={refreshCitySearch}
             disabled={!lastSearchTime}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            variants={scaleVariation}
+            whileHover="hover"
+            whileTap="tap"
             transition={{ duration: 0.3 }}
           >
             <FontAwesomeIcon icon={faRedo} />
@@ -69,8 +71,9 @@ export const HomePage = () => {
           <motion.button
             className="rounded-button logout-button"
             onClick={logout}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            variants={scaleVariation}
+            whileHover="hover"
+            whileTap="tap"
             transition={{ duration: 0.3 }}
           >
             <FontAwesomeIcon icon={faSignOutAlt} />

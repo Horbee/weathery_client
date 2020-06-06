@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { useContext } from "react";
 import { Button, Col, Form, Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
@@ -8,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signupFormConfig } from "../../form-config/SignupFormConfig";
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
 import { createErrorToast } from "../../utils/toast/errorToast";
+import { yFlipVariatons } from "../common/variants/framerVariants";
 
 export const SignupForm = () => {
   const { signup, loading } = useContext(AuthServiceContext);
@@ -21,7 +23,13 @@ export const SignupForm = () => {
   const handleSubmitFailure = () => createErrorToast(errors.password!);
 
   return (
-    <div className="container-form">
+    <motion.div
+      className="container-form"
+      variants={yFlipVariatons}
+      initial="initial"
+      animate="enter"
+      key="signup"
+    >
       <h3 className="title">Sign up</h3>
       <p className="subtitle mb-4 mt-15">
         Create a new account and be always up to date with weather informations.
@@ -82,6 +90,6 @@ export const SignupForm = () => {
           </Button>
         </div>
       </Form>
-    </div>
+    </motion.div>
   );
 };
