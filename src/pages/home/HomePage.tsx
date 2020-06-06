@@ -1,5 +1,6 @@
 import "./HomePage.scss";
 
+import { motion } from "framer-motion";
 import React, { useContext, useEffect } from "react";
 import { Container, Jumbotron, OverlayTrigger, Tooltip } from "react-bootstrap";
 
@@ -45,13 +46,16 @@ export const HomePage = () => {
           placement={"bottom"}
           overlay={<Tooltip id="tooltip-refresh">Refresh</Tooltip>}
         >
-          <button
+          <motion.button
             className="rounded-button refresh-button"
             onClick={refreshCitySearch}
             disabled={!lastSearchTime}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3 }}
           >
             <FontAwesomeIcon icon={faRedo} />
-          </button>
+          </motion.button>
         </OverlayTrigger>
 
         <div className="city-form">
@@ -62,9 +66,15 @@ export const HomePage = () => {
           placement={"bottom"}
           overlay={<Tooltip id="tooltip-logout">Logout</Tooltip>}
         >
-          <button className="rounded-button logout-button" onClick={logout}>
+          <motion.button
+            className="rounded-button logout-button"
+            onClick={logout}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+          >
             <FontAwesomeIcon icon={faSignOutAlt} />
-          </button>
+          </motion.button>
         </OverlayTrigger>
       </div>
       <div className="mt-4">

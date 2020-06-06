@@ -1,5 +1,6 @@
 import "./WeatherGrid.scss";
 
+import { motion } from "framer-motion";
 import moment from "moment";
 import React, { useMemo } from "react";
 
@@ -10,7 +11,7 @@ import { openWeatherMapIconURL } from "../../constants/endpoints";
 import { Weather } from "../../models/WeatherResponse";
 import { decimal } from "../../utils/math";
 import { capitalize } from "../../utils/string";
-import { FlipCard } from "./grid-components/FlipCard";
+import { FlipCard, xFlipVariatons, yFlipVariatons } from "./grid-components/FlipCard";
 import { SingleValueCard } from "./grid-components/SingleValueCard";
 
 interface WeatherGridProps {
@@ -37,16 +38,32 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
     <div className="grid-container">
       <FlipCard
         frontSide={
-          <div className="bg2">
+          <motion.div
+            className="bg2"
+            variants={xFlipVariatons}
+            initial="initial"
+            animate="enter"
+            whileHover="hover"
+            transition={{ rotateX: { duration: 0.5 } }}
+            key="front"
+          >
             <h2>{tempMemo} &deg;</h2>
             <p>Temperature</p>
-          </div>
+          </motion.div>
         }
         backSide={
-          <div className="bg2">
+          <motion.div
+            className="bg2"
+            variants={xFlipVariatons}
+            initial="initial"
+            animate="enter"
+            whileHover="hover"
+            transition={{ rotateX: { duration: 0.5 } }}
+            key="back"
+          >
             <h2>{feelsLikeMemo} &deg;</h2>
             <p>Feels Like</p>
-          </div>
+          </motion.div>
         }
       />
       <SingleValueCard className="bg1">
@@ -77,16 +94,32 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
       ))}
       <FlipCard
         frontSide={
-          <div className="bg1">
+          <motion.div
+            className="bg1"
+            variants={yFlipVariatons}
+            initial="initial"
+            animate="enter"
+            whileHover="hover"
+            transition={{ rotateX: { duration: 0.5 } }}
+            key="front"
+          >
             <h2>{moment(weather.sys.sunrise * 1000).format("HH:mm")}</h2>
             <p>Sunrise</p>
-          </div>
+          </motion.div>
         }
         backSide={
-          <div className="bg1">
+          <motion.div
+            className="bg1"
+            variants={yFlipVariatons}
+            initial="initial"
+            animate="enter"
+            whileHover="hover"
+            transition={{ rotateX: { duration: 0.5 } }}
+            key="back"
+          >
             <h2>{moment(weather.sys.sunset * 1000).format("HH:mm")}</h2>
             <p>Sunset</p>
-          </div>
+          </motion.div>
         }
       />
       <SingleValueCard className="bg1">
