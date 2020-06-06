@@ -68,7 +68,7 @@ export const useAuthService = () => {
       TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } catch (err) {
       console.log({ err });
-      if (err.response.data?.success === false) {
+      if (err.response?.data?.success === false) {
         createErrorToast(err.response.data.error);
       }
     }
@@ -93,7 +93,7 @@ export const useAuthService = () => {
       TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } catch (err) {
       console.log({ err });
-      if (err.response.data?.success === false) {
+      if (err.response?.data?.success === false) {
         createErrorToast(err.response.data.error);
       }
     } finally {

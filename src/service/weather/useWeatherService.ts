@@ -54,7 +54,7 @@ export const useWeatherService = () => {
       TypedStorage.citySearch = city;
     } catch (err) {
       console.log(err.response);
-      createErrorToast(err.response.data?.error);
+      createErrorToast(err.response?.data?.error);
     }
   };
 
