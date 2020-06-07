@@ -16,3 +16,9 @@ export const scaleVariation: Variants = {
   hover: { scale: 1.1 },
   tap: { scale: 0.95 }
 };
+
+export const carouselVariants: Variants = {
+  enter: { x: 300, opacity: 0 },
+  center: { zIndex: 1, x: 0, opacity: 1 },
+  exit: { zIndex: 0, x: -300, opacity: 0 }
+};

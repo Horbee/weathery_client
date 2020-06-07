@@ -1,3 +1,9 @@
-.carousel {
+.carouse-container {
+  position: relative;
   width: 70%;
+  height: 300px;
+
+  img {
+    position: absolute;
+  }
 }
