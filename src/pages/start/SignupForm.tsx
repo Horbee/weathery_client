@@ -13,12 +13,14 @@ import { yFlipVariatons } from "../common/variants/framerVariants";
 
 export const SignupForm = () => {
   const { signup, loading } = useContext(AuthServiceContext);
-  const { values, fields, handleSubmit, errors } = useFluentForm(
+  const { values, fields, handleSubmit, errors, setValues } = useFluentForm(
     signupFormConfig
   );
 
-  const handleSubmitSuccess = () =>
+  const handleSubmitSuccess = () => {
     signup(values.name, values.email, values.password);
+    setValues({ password: "", passwordConfirm: "" });
+  };
 
   const handleSubmitFailure = () => createErrorToast(errors.password!);
 

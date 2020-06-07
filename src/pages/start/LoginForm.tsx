@@ -8,17 +8,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { loginFormConfig } from "../../form-config/LoginFormConfig";
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
-import { createErrorToast } from "../../utils/toast/errorToast";
 import { yFlipVariatons } from "../common/variants/framerVariants";
 
 export const LoginForm = () => {
   const { login, loading } = useContext(AuthServiceContext);
-  const { values, fields, errors, handleSubmit } = useFluentForm(
+  const { values, fields, handleSubmit, setValues } = useFluentForm(
     loginFormConfig
   );
 
-  const handleSubmitSuccess = () => login(values.email, values.password);
-  const handleSubmitFailure = () => createErrorToast(errors.password);
+  const handleSubmitSuccess = () => {
+    login(values.email, values.password);
+    setValues({ password: "" });
+  };
 
   return (
     <motion.div
@@ -32,10 +33,7 @@ export const LoginForm = () => {
       <p className="subtitle mt-15">
         Log in to your account to see the actual weather informations.
       </p>
-      <Form
-        onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}
-        className="mt-50"
-      >
+      <Form onSubmit={handleSubmit(handleSubmitSuccess)} className="mt-50">
         {/* <!-- Email Field --> */}
         <Form.Group>
           <Form.Control
