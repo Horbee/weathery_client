@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../../constants/endpoints";
 import { Nullable } from "../../utils/Nullable";
 import { createErrorToast } from "../../utils/toast/errorToast";
+import { createSuccessToast } from "../../utils/toast/successToast";
 import { TypedStorage } from "../../utils/typedStorage";
 
 interface UserData {
@@ -132,5 +133,32 @@ export const useAuthService = () => {
     TypedStorage.clearAuth();
   };
 
-  return { auth, login, clearAuth, signup, checkInitialAuthState, loading };
+  const forgotPassword = async (email: string) => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        backendURL("/api/auth/forgotpassword"),
+        { email }
+      );
+      createSuccessToast(response.data.data);
+    } catch (err) {
+      console.log({ err });
+      if (err.response?.data?.success === false) {
+        createErrorToast(err.response.data.error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    auth,
+    login,
+    clearAuth,
+    signup,
+    forgotPassword,
+    checkInitialAuthState,
+    loading
+  };
 };

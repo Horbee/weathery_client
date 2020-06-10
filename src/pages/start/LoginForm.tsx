@@ -10,7 +10,13 @@ import { loginFormConfig } from "../../form-config/LoginFormConfig";
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
 import { yFlipVariatons } from "../common/variants/framerVariants";
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  openForgotPasswordModal: () => void;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({
+  openForgotPasswordModal
+}) => {
   const { login, loading } = useContext(AuthServiceContext);
   const { values, fields, handleSubmit, setValues } = useFluentForm(
     loginFormConfig
@@ -56,7 +62,12 @@ export const LoginForm = () => {
 
         {/* <!-- Forgot PW link --> */}
         <div className="flex-justify-even mt-15">
-          <p className="link self-align-center">Forgot password?</p>
+          <p
+            onClick={openForgotPasswordModal}
+            className="link self-align-center"
+          >
+            Forgot password?
+          </p>
 
           {/* <!-- Submit button --> */}
           <Button variant="primary" type="submit" disabled={loading}>
