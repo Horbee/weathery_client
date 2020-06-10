@@ -3,7 +3,7 @@ import "./styles.scss";
 import "react-toastify/dist/ReactToastify.css";
 
 import React from "react";
-import { BrowserRouter, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Routes } from "./constants/routes";
@@ -11,6 +11,7 @@ import { ConditionalRoute } from "./custom-components/ConditionalRoute";
 import { LoadingWrapper } from "./custom-components/LoadingWrapper";
 import { BackendIndicator } from "./pages/common/backend-indicator/BackendIndicator";
 import { HomePage } from "./pages/home/HomePage";
+import { ResetPassword } from "./pages/resetpassword-modal/ResetPassword";
 import { StartPage } from "./pages/start/StartPage";
 import { AuthServiceContext } from "./service/auth/AuthServiceContext";
 import { useAuthService } from "./service/auth/useAuthService";
@@ -26,25 +27,23 @@ export const App = () => {
     <LoadingWrapper loading={authService.checkInitialAuthState}>
       <AuthServiceContext.Provider value={authService}>
         <WeatherServiceContext.Provider value={weatherService}>
-          <BrowserRouter>
-            <BackendIndicator />
-            <Switch>
-              <ConditionalRoute
-                path={Routes.Home}
-                exact
-                condition={authService.auth.isLoggedIn}
-                component={HomePage}
-                redirectUrl={Routes.Start}
-              />
-              <ConditionalRoute
-                path={Routes.Start}
-                exact
-                condition={!authService.auth.isLoggedIn}
-                component={StartPage}
-                redirectUrl={Routes.Home}
-              />
-            </Switch>
-          </BrowserRouter>
+          <BackendIndicator />
+          <Switch>
+            <ConditionalRoute
+              path={Routes.Home}
+              exact
+              condition={authService.auth.isLoggedIn}
+              component={HomePage}
+              redirectUrl={Routes.Start}
+            />
+            <ConditionalRoute
+              path={Routes.Start}
+              condition={!authService.auth.isLoggedIn}
+              component={StartPage}
+              redirectUrl={Routes.Home}
+            />
+          </Switch>
+          <Route exact path={Routes.ResetPassword} component={ResetPassword} />
         </WeatherServiceContext.Provider>
       </AuthServiceContext.Provider>
     </LoadingWrapper>

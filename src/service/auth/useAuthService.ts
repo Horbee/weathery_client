@@ -152,12 +152,36 @@ export const useAuthService = () => {
     }
   };
 
+  const resetPassword = async (password: string, token: string) => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        backendURL(`/api/auth/resetpassword?token=${token}`),
+        {
+          password
+        }
+      );
+      createSuccessToast(response.data.data);
+      return true;
+    } catch (err) {
+      console.log({ err });
+      if (err.response?.data?.success === false) {
+        createErrorToast(err.response.data.error);
+      }
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     auth,
     login,
     clearAuth,
     signup,
     forgotPassword,
+    resetPassword,
     checkInitialAuthState,
     loading
   };

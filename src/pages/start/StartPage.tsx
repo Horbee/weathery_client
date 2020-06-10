@@ -5,6 +5,7 @@ import { ImageCarousel } from "../common/img-carousel/ImageCarousel";
 import { Modal } from "../common/modal/Modal";
 import { FacebookOauthButton } from "../common/oauth-button/FacebookOauthButton";
 import { GoogleOauthButton } from "../common/oauth-button/GoogleOauthButton";
+import { ForgotPasswordModal } from "../forgotpassword-modal/ForgotPasswordModal";
 import { LoginForm } from "./LoginForm";
 import { SignupForm } from "./SignupForm";
 
@@ -19,7 +20,11 @@ export const StartPage = () => {
 
   return (
     <>
-      <Modal isOpen={modalOpen} closeFunction={closeModal} />
+      <Modal
+        isOpen={modalOpen}
+        closeFunction={closeModal}
+        modalContent={<ForgotPasswordModal closeFunction={closeModal} />}
+      />
       <div className="flex-center vh100">
         <div className="container-base container-left">
           <div className="container-inner">

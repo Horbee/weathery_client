@@ -1,4 +1,5 @@
 export enum Routes {
   Start = "/",
-  Home = "/home"
+  Home = "/home",
+  ResetPassword = "/resetpassword"
 }
