@@ -10,7 +10,7 @@ import { SignupForm } from "./SignupForm";
 
 export const StartPage = () => {
   const [toggleForms, setToggleForms] = useState(false);
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const toggleFunction = () => setToggleForms((prev) => !prev);
 

@@ -5,6 +5,9 @@ import React, { useContext } from "react";
 import { Form, Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { forgotPasswordFormConfig } from "../../../form-config/ForgotPasswordFormConfig";
 import { AuthServiceContext } from "../../../service/auth/AuthServiceContext";
 import { modalVariants, scaleVariation } from "../variants/framerVariants";
@@ -42,7 +45,14 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, closeFunction }) => {
             className="modal-content"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="subtitle mb-3">Request Password Reset</h3>
+            <div className="modal-close" onClick={closeFunction}>
+              <FontAwesomeIcon icon={faTimes} />
+            </div>
+            <h1 className="title modal-title">Forgot Password</h1>
+            <p className="subtitle modal-subtitle my-3 muted">
+              Enter your E-Mail address and we will send you the instructions to
+              reset your password.
+            </p>
 
             <Form onSubmit={handleSubmit(handleSubmitSuccess)}>
               <Form.Group>

@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Muli&family=Rokkitt:wght@700&display=swap");
-
-$powder-color: #f8efef;
-$muted-color: #838a9e;
-$gray-color: #cad6e4;
-$link-color: #0c6787;
-$hover-link-color: #007bff;
-$lila-color: #4c5c96;
+@import "_colors";
 
 body {
   background-color: $powder-color;
