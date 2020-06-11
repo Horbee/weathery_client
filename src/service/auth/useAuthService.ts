@@ -2,8 +2,16 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline
+} from "react-google-login";
 
 import { backendURL } from "../../constants/endpoints";
+import {
+  AccessTokenProps,
+  FacebookLoginResponse
+} from "../../models/TokenResponse";
 import { Nullable } from "../../utils/Nullable";
 import { createErrorToast } from "../../utils/toast/errorToast";
 import { createSuccessToast } from "../../utils/toast/successToast";
@@ -18,17 +26,6 @@ interface UserData {
 interface AuthResponse {
   success: boolean;
   data: string;
-}
-
-interface AccessTokenProps {
-  appId: string;
-  exp: number;
-  iat: number;
-  user: {
-    id: string;
-    name: string;
-    city?: string;
-  };
 }
 
 const initialAuthState = {
@@ -115,7 +112,7 @@ export const useAuthService = () => {
         setAuth({
           isLoggedIn: true,
           accessToken,
-          city: decoded.user.city ?? null
+          city: decoded?.user?.city ?? null
         });
         console.log("You are logged in");
       } else {
@@ -175,9 +172,49 @@ export const useAuthService = () => {
     }
   };
 
+  const googleLogin = (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) => {
+    console.log(response);
+
+    const idToken = (response as GoogleLoginResponse).tokenObj.id_token;
+    const accessToken = (response as GoogleLoginResponse).tokenObj.access_token;
+    const expiresAt = (response as GoogleLoginResponse).tokenObj.expires_at;
+    const email = (response as GoogleLoginResponse).profileObj.email;
+    const name = (response as GoogleLoginResponse).profileObj.name;
+    const googleId = (response as GoogleLoginResponse).profileObj.googleId;
+
+    // send post request with the data before, we will get back a 200 response if the token is valid, with the last city
+
+    setAuth({
+      isLoggedIn: true,
+      accessToken,
+      city: null
+    });
+    TypedStorage.username = email;
+    TypedStorage.accessToken = accessToken;
+    TypedStorage.tokenExpirationDate = moment(expiresAt);
+  };
+
+  const facebookLogin = (response: FacebookLoginResponse) => {
+    console.log(response);
+    const { accessToken, id: facebookId, email, name, expiresIn } = response;
+
+    setAuth({
+      isLoggedIn: true,
+      accessToken,
+      city: null
+    });
+    TypedStorage.username = email!;
+    TypedStorage.accessToken = accessToken;
+    TypedStorage.tokenExpirationDate = moment().add(expiresIn, "seconds");
+  };
+
   return {
     auth,
     login,
+    googleLogin,
+    facebookLogin,
     clearAuth,
     signup,
     forgotPassword,
