@@ -2,10 +2,16 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
+import {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline
+} from "react-google-login";
 
 import { backendURL } from "../../constants/endpoints";
-import { AccessTokenProps, FacebookLoginResponse } from "../../models/TokenResponse";
+import {
+  AccessTokenProps,
+  FacebookLoginResponse
+} from "../../models/TokenResponse";
 import { Nullable } from "../../utils/Nullable";
 import { createErrorToast } from "../../utils/toast/errorToast";
 import { createSuccessToast } from "../../utils/toast/successToast";
@@ -196,7 +202,7 @@ export const useAuthService = () => {
       });
       TypedStorage.username = email;
       TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(expiresAt);
+      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } catch (err) {
       console.log({ err });
       if (err.response?.data?.success === false) {
@@ -236,7 +242,7 @@ export const useAuthService = () => {
       });
       TypedStorage.username = email!;
       TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment().add(expiresIn, "seconds");
+      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } catch (err) {
       console.log({ err });
       if (err.response?.data?.success === false) {

@@ -15,7 +15,7 @@ export const FacebookOauthButton: React.FC = () => {
   return (
     <FacebookLogin
       appId={appId}
-      autoLoad={true}
+      autoLoad={false}
       fields="name,email,picture"
       textButton="Facebook"
       callback={facebookLogin}
