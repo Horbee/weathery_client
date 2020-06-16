@@ -16,6 +16,7 @@ export const GoogleOauthButton: React.FC = () => {
 
   return (
     <GoogleLogin
+      autoLoad={false}
       clientId={clientId}
       buttonText="Google"
       onSuccess={googleLogin}
