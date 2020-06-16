@@ -2,16 +2,10 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import {
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline
-} from "react-google-login";
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
 
 import { backendURL } from "../../constants/endpoints";
-import {
-  AccessTokenProps,
-  FacebookLoginResponse
-} from "../../models/TokenResponse";
+import { AccessTokenProps, FacebookLoginResponse } from "../../models/TokenResponse";
 import { Nullable } from "../../utils/Nullable";
 import { createErrorToast } from "../../utils/toast/errorToast";
 import { createSuccessToast } from "../../utils/toast/successToast";
@@ -172,42 +166,85 @@ export const useAuthService = () => {
     }
   };
 
-  const googleLogin = (
+  const googleLogin = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
     console.log(response);
 
     const idToken = (response as GoogleLoginResponse).tokenObj.id_token;
-    const accessToken = (response as GoogleLoginResponse).tokenObj.access_token;
+    //const accessToken = (response as GoogleLoginResponse).tokenObj.access_token;
     const expiresAt = (response as GoogleLoginResponse).tokenObj.expires_at;
     const email = (response as GoogleLoginResponse).profileObj.email;
     const name = (response as GoogleLoginResponse).profileObj.name;
-    const googleId = (response as GoogleLoginResponse).profileObj.googleId;
+    //const googleId = (response as GoogleLoginResponse).profileObj.googleId;
 
-    // send post request with the data before, we will get back a 200 response if the token is valid, with the last city
-
-    setAuth({
-      isLoggedIn: true,
-      accessToken,
-      city: null
-    });
-    TypedStorage.username = email;
-    TypedStorage.accessToken = accessToken;
-    TypedStorage.tokenExpirationDate = moment(expiresAt);
+    try {
+      const response = await axios.post<AuthResponse>(
+        backendURL("/api/oauth/google"),
+        {
+          email,
+          name,
+          idToken
+        }
+      );
+      const token = response.data.data;
+      const decoded = jwt.decode(token) as AccessTokenProps;
+      setAuth({
+        isLoggedIn: true,
+        accessToken: token,
+        city: decoded.user.city ?? null
+      });
+      TypedStorage.username = email;
+      TypedStorage.accessToken = token;
+      TypedStorage.tokenExpirationDate = moment(expiresAt);
+    } catch (err) {
+      console.log({ err });
+      if (err.response?.data?.success === false) {
+        createErrorToast(err.response.data.error);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const facebookLogin = (response: FacebookLoginResponse) => {
-    console.log(response);
-    const { accessToken, id: facebookId, email, name, expiresIn } = response;
+  const facebookLogin = async (response: FacebookLoginResponse) => {
+    setLoading(true);
 
-    setAuth({
-      isLoggedIn: true,
+    console.log(response);
+    const {
       accessToken,
-      city: null
-    });
-    TypedStorage.username = email!;
-    TypedStorage.accessToken = accessToken;
-    TypedStorage.tokenExpirationDate = moment().add(expiresIn, "seconds");
+      /*id: facebookId,*/ email,
+      name,
+      expiresIn
+    } = response;
+
+    try {
+      const response = await axios.post<AuthResponse>(
+        backendURL("/api/oauth/facebook"),
+        {
+          email,
+          name,
+          accessToken
+        }
+      );
+      const token = response.data.data;
+      const decoded = jwt.decode(token) as AccessTokenProps;
+      setAuth({
+        isLoggedIn: true,
+        accessToken: token,
+        city: decoded.user.city ?? null
+      });
+      TypedStorage.username = email!;
+      TypedStorage.accessToken = token;
+      TypedStorage.tokenExpirationDate = moment().add(expiresIn, "seconds");
+    } catch (err) {
+      console.log({ err });
+      if (err.response?.data?.success === false) {
+        createErrorToast(err.response.data.error);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
