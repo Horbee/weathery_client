@@ -179,7 +179,7 @@ export const useAuthService = () => {
 
     const idToken = (response as GoogleLoginResponse).tokenObj.id_token;
     //const accessToken = (response as GoogleLoginResponse).tokenObj.access_token;
-    const expiresAt = (response as GoogleLoginResponse).tokenObj.expires_at;
+    // const expiresAt = (response as GoogleLoginResponse).tokenObj.expires_at;
     const email = (response as GoogleLoginResponse).profileObj.email;
     const name = (response as GoogleLoginResponse).profileObj.name;
     //const googleId = (response as GoogleLoginResponse).profileObj.googleId;
@@ -200,7 +200,7 @@ export const useAuthService = () => {
         accessToken: token,
         city: decoded.user.city ?? null
       });
-      TypedStorage.username = email;
+      // TypedStorage.username = email;
       TypedStorage.accessToken = token;
       TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } catch (err) {
@@ -220,8 +220,8 @@ export const useAuthService = () => {
     const {
       accessToken,
       /*id: facebookId,*/ email,
-      name,
-      expiresIn
+      name
+      // expiresIn
     } = response;
 
     try {
@@ -240,7 +240,7 @@ export const useAuthService = () => {
         accessToken: token,
         city: decoded.user.city ?? null
       });
-      TypedStorage.username = email!;
+      // TypedStorage.username = email!;
       TypedStorage.accessToken = token;
       TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } catch (err) {
