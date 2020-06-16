@@ -8,6 +8,7 @@ import {
 } from "react-google-login";
 
 import { backendURL } from "../../constants/endpoints";
+import { CITYSEARCH } from "../../constants/localstorage";
 import {
   AccessTokenProps,
   FacebookLoginResponse
@@ -117,6 +118,7 @@ export const useAuthService = () => {
         console.log("You are logged in");
       } else {
         console.log("Token expired");
+        TypedStorage.clearItem(CITYSEARCH);
       }
     } else {
       console.log("No token found");

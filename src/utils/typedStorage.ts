@@ -1,6 +1,12 @@
 import moment, { Moment } from "moment";
 
-import { ACCESS_TOKEN, CITYSEARCH, EXPIRES_AT, USERNAME } from "../constants/localstorage";
+import {
+  ACCESS_TOKEN,
+  CITYSEARCH,
+  EXPIRES_AT,
+  TypedStorageItem,
+  USERNAME
+} from "../constants/localstorage";
 import { Nullable } from "./Nullable";
 
 export class TypedStorage {
@@ -42,6 +48,10 @@ export class TypedStorage {
 
   public static clear() {
     localStorage.clear();
+  }
+
+  public static clearItem(item: TypedStorageItem) {
+    localStorage.removeItem(item);
   }
 
   public static clearAuth() {
