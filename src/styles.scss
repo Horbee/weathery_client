@@ -133,6 +133,38 @@ body {
   border: 1px solid $gray-color;
 }
 
+.mobile-title {
+  display: none;
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+  body {
+    background-color: $lila-color;
+  }
+  .container-right {
+    display: none;
+  }
+  .container-left {
+    border-radius: 15px;
+  }
+  .mobile-title {
+    display: block;
+  }
+  .mobile-col {
+    flex-direction: column;
+  }
+  .subtitle {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .container-left {
+    width: 100%;
+  }
+}
+
 /* Placement utils */
 
 .vh100 {

@@ -25,7 +25,11 @@ export const StartPage = () => {
         closeFunction={closeModal}
         modalContent={<ForgotPasswordModal closeFunction={closeModal} />}
       />
-      <div className="flex-center vh100">
+      <div className="flex-center vh100 mobile-col">
+        <h1 className="mobile-title title text-light txt-big">WEATHERY</h1>
+        <p className="mobile-title subtitle text-light">
+          What is the weather like today?
+        </p>
         <div className="container-base container-left">
           <div className="container-inner">
             <AnimatePresence>
