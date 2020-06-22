@@ -10,7 +10,7 @@ import { createErrorToast } from "../../../utils/toast/errorToast";
 export const FacebookOauthButton: React.FC = () => {
   const { facebookLogin } = useContext(AuthServiceContext);
 
-  const appId = "376791856612694";
+  const appId = process.env.REACT_APP_FACEBOOK_APP_ID || "";
 
   return (
     <FacebookLogin

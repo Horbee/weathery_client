@@ -11,8 +11,7 @@ import { createErrorToast } from "../../../utils/toast/errorToast";
 export const GoogleOauthButton: React.FC = () => {
   const { googleLogin } = useContext(AuthServiceContext);
 
-  const clientId =
-    "808513170116-p3mm7sfji9fnm6geornpqtq5r1pvhuk7.apps.googleusercontent.com";
+  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || "";
 
   return (
     <GoogleLogin
