@@ -24,6 +24,7 @@ export const StartPage = () => {
         isOpen={modalOpen}
         closeFunction={closeModal}
         modalContent={<ForgotPasswordModal closeFunction={closeModal} />}
+        containerClassName="w-full"
       />
       <div className="mt-16 md:h-screen md:mt-0 md:flex md:flex-col md:justify-center lg:mx-4 xl:flex-row xl:items-center">
         <div className="text-white text-center xl:hidden">

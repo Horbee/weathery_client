@@ -33,6 +33,7 @@ export const ResetPassword = () => {
       modalContent={
         <ResetPasswordModalContent closeFunction={closeModal} token={token} />
       }
+      containerClassName="w-full"
     />
   );
 };

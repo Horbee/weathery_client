@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
-import { Form, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { forgotPasswordFormConfig } from "../../form-config/ForgotPasswordFormConfig";
@@ -28,23 +28,23 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
 
   return (
     <>
-      <h1 className="title modal-title">Forgot Password</h1>
-      <p className="subtitle modal-subtitle my-3 muted">
+      <h1 className="font-rokkit text-4xl text-lila">Forgot Password</h1>
+      <p className="mb-3 text-gray-500">
         Enter your E-Mail address and we will send you the instructions to reset
         your password.
       </p>
 
-      <Form onSubmit={handleSubmit(handleSubmitSuccess)}>
-        <Form.Group>
-          <Form.Control
+      <form onSubmit={handleSubmit(handleSubmitSuccess)}>
+        <div className="mb-3">
+          <input
             type="text"
-            className="muli-font"
+            className="input"
             placeholder="Enter your email address"
             {...fields.email}
           />
-        </Form.Group>
+        </div>
         <motion.button
-          className="btn btn-primary"
+          className="btn"
           type="submit"
           variants={scaleVariation}
           whileHover="hover"
@@ -57,7 +57,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
             <span>Submit</span>
           )}
         </motion.button>
-      </Form>
+      </form>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import "./Modal.scss";
 
+import classnames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 
@@ -13,19 +14,23 @@ interface ModalProps {
   closeFunction: () => void;
   modalContent: React.ReactNode;
   onExitComplete?: () => void;
+  containerClassName?: string;
+  containerStyles?: React.CSSProperties;
 }
 
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
   closeFunction,
   modalContent,
-  onExitComplete
+  onExitComplete,
+  containerClassName,
+  containerStyles
 }) => {
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
       {isOpen && (
         <motion.div
-          className="modal-backdrop flex-center"
+          className="modal-backdrop"
           variants={modalVariants}
           initial="closed"
           animate="open"
@@ -33,8 +38,9 @@ export const Modal: React.FC<ModalProps> = ({
           onClick={closeFunction}
         >
           <motion.div
-            className="modal-content"
+            className={classnames("modal-content", containerClassName)}
             onClick={(e) => e.stopPropagation()}
+            style={containerStyles}
           >
             <div className="modal-close" onClick={closeFunction}>
               <FontAwesomeIcon icon={faTimes} />

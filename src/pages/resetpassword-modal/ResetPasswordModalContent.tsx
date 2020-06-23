@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
-import { Form, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { resetPasswordFormConfig } from "../../form-config/ResetPasswordFormConfig";
@@ -35,30 +35,28 @@ export const ResetPasswordModalContent: React.FC<ResetPasswordModalContentProps>
 
   return (
     <>
-      <h1 className="title modal-title">Reset Password</h1>
-      <p className="subtitle modal-subtitle my-3 muted">
-        Provide new password to reset.
-      </p>
+      <h1 className="font-rokkit text-4xl text-lila">Reset Password</h1>
+      <p className="text-gray-500">Provide new password to reset.</p>
 
-      <Form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}>
-        <Form.Group>
-          <Form.Control
+      <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}>
+        <div className="mt-3">
+          <input
             type="password"
-            className="muli-font"
+            className="input"
             placeholder="Enter your password"
             {...fields.password}
           />
-        </Form.Group>
-        <Form.Group>
-          <Form.Control
+        </div>
+        <div className="mt-3">
+          <input
             type="password"
-            className="muli-font"
+            className="input"
             placeholder="Confirm your password"
             {...fields.passwordConfirm}
           />
-        </Form.Group>
+        </div>
         <motion.button
-          className="btn btn-primary"
+          className="btn mt-3"
           type="submit"
           variants={scaleVariation}
           whileHover="hover"
@@ -71,7 +69,7 @@ export const ResetPasswordModalContent: React.FC<ResetPasswordModalContentProps>
             <span>Reset</span>
           )}
         </motion.button>
-      </Form>
+      </form>
     </>
   );
 };
