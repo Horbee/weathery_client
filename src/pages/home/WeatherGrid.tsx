@@ -11,7 +11,10 @@ import { openWeatherMapIconURL } from "../../constants/endpoints";
 import { Weather } from "../../models/WeatherResponse";
 import { decimal } from "../../utils/math";
 import { capitalize } from "../../utils/string";
-import { xFlipVariatons, yFlipVariatons } from "../common/variants/framerVariants";
+import {
+  xFlipVariatons,
+  yFlipVariatons
+} from "../common/variants/framerVariants";
 import { FlipCard } from "./grid-components/FlipCard";
 import { SingleValueCard } from "./grid-components/SingleValueCard";
 
@@ -36,7 +39,7 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
   ]);
 
   return (
-    <div className="grid-container">
+    <div className="grid-container grid-cols-2 xl:grid-cols-4">
       <FlipCard
         frontSide={
           <motion.div

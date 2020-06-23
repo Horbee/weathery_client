@@ -1,5 +1,4 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
@@ -19,20 +18,21 @@ export const CitySearch: React.FC<CitySearchProps> = ({ queryFunction }) => {
   };
 
   return (
-    <Form
+    <form
       onSubmit={handleSubmit(handleSubmitSuccess)}
-      className="flex-justify-even"
+      className="flex items-center"
     >
-      <Form.Group controlId="formBasicEmail" className="w-100 m-1">
-        <Form.Control
+      <div className="w-full m-1">
+        <input
           type="text"
+          className="input"
           placeholder="Search for City..."
           {...fields.city}
         />
-      </Form.Group>
-      <Button variant="primary" type="submit" disabled={!validity.city}>
+      </div>
+      <button className="btn" type="submit" disabled={!validity.city}>
         Search
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 };

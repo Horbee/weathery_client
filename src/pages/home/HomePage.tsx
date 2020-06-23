@@ -1,16 +1,12 @@
-import "./HomePage.scss";
-
-import { motion } from "framer-motion";
 import React, { useContext, useEffect } from "react";
-import { Container, Jumbotron, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 import { faRedo, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import gradientImg from "../../assets/images/gradient.jpg";
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
 import { WeatherServiceContext } from "../../service/weather/WeatherServiceContext";
 import { TypedStorage } from "../../utils/typedStorage";
-import { scaleVariation } from "../common/variants/framerVariants";
+import { RoundedButton } from "../common/rounded-button/RoundedButton";
 import { CitySearch } from "./CitySearch";
 import { WeatherGrid } from "./WeatherGrid";
 
@@ -41,62 +37,59 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <Container>
-      <div className="flex-center my-4">
-        <OverlayTrigger
-          placement={"bottom"}
-          overlay={<Tooltip id="tooltip-refresh">Refresh</Tooltip>}
-        >
-          <motion.button
-            className="rounded-button refresh-button"
-            onClick={refreshCitySearch}
+    <section className="container mx-auto">
+      <div className="my-4 md:flex md:items-center md:justify-between">
+        <div className="hidden md:block">
+          <RoundedButton
+            tooltipText={"Refresh"}
+            tooltipClassName="ml-4"
             disabled={!lastSearchTime}
-            variants={scaleVariation}
-            whileHover="hover"
-            whileTap="tap"
-            transition={{ duration: 0.3 }}
-          >
-            <FontAwesomeIcon icon={faRedo} />
-          </motion.button>
-        </OverlayTrigger>
-
-        <div className="city-form">
+            onClick={refreshCitySearch}
+            icon={faRedo}
+          />
+        </div>
+        <div className="w-full mt-8 md:m-0 md:w-1/2">
           <CitySearch queryFunction={getWeatherInfo} />
         </div>
 
-        <OverlayTrigger
-          placement={"bottom"}
-          overlay={<Tooltip id="tooltip-logout">Logout</Tooltip>}
-        >
-          <motion.button
-            className="rounded-button logout-button"
+        <div className="flex justify-between mt-3">
+          <div className="md:hidden">
+            <RoundedButton
+              tooltipText={"Refresh"}
+              disabled={!lastSearchTime}
+              onClick={refreshCitySearch}
+              icon={faRedo}
+            />
+          </div>
+
+          <RoundedButton
+            tooltipText={"Logout"}
+            tooltipClassName="-ml-24"
             onClick={logout}
-            variants={scaleVariation}
-            whileHover="hover"
-            whileTap="tap"
-            transition={{ duration: 0.3 }}
-          >
-            <FontAwesomeIcon icon={faSignOutAlt} />
-          </motion.button>
-        </OverlayTrigger>
+            icon={faSignOutAlt}
+          />
+        </div>
       </div>
       <div className="mt-4">
         {weather ? (
           <WeatherGrid weather={weather} />
         ) : (
-          <Jumbotron className="gradient-bg">
+          <section
+            style={{ backgroundImage: `url(${gradientImg})` }}
+            className="bg-cover"
+          >
             <div className="text-center text-white py-5 px-4">
-              <h2 className="pt-3 mb-5 title text-white txt-big">
+              <h2 className="pt-3 mb-5 title text-white text-4xl">
                 Hello, world!
               </h2>
-              <p className="subtitle text-white">
+              <p className="text-white mb-3">
                 Start using Weathery by searching for a weather information of a
                 city.
               </p>
             </div>
-          </Jumbotron>
+          </section>
         )}
       </div>
-    </Container>
+    </section>
   );
 };
