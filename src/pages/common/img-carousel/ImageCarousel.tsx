@@ -34,7 +34,6 @@ export const ImageCarousel = () => {
     <div className="carouse-container">
       <AnimatePresence initial={false}>
         <motion.img
-          className="d-block w-100"
           key={currentImage}
           src={images[currentImage]}
           variants={carouselVariants}
