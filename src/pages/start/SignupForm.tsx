@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
-import { Button, Col, Form, Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -32,51 +32,51 @@ export const SignupForm = () => {
       animate="enter"
       key="signup"
     >
-      <h3 className="title">Sign up</h3>
-      <p className="subtitle mb-4 mt-15">
+      <h3 className="font-rokkit text-deepBlue text-4xl">Sign up</h3>
+      <p className="text-deepBlue">
         Create a new account and be always up to date with weather informations.
       </p>
-      <Form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}>
+      <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}>
         {/* <!-- Name Field --> */}
-        <Form.Group>
-          <Form.Control
+        <div className="mt-4">
+          <input
             type="text"
-            className="muli-font"
+            className="input"
             placeholder="Enter your name"
             {...fields.name}
           />
-        </Form.Group>
+        </div>
 
         {/* <!-- Email Field --> */}
-        <Form.Group>
-          <Form.Control
+        <div className="mt-4">
+          <input
             type="text"
-            className="muli-font"
+            className="input"
             placeholder="Enter your email address"
             {...fields.email}
           />
-        </Form.Group>
+        </div>
 
         {/* <!-- Password Fields --> */}
-        <Form.Row>
-          <Col>
-            <Form.Control
+        <div className="flex flex-wrap -mx-3 mt-4">
+          <div className="w-1/2 px-3">
+            <input
               type="text"
-              className="muli-font"
+              className="input"
               placeholder="Enter your password"
               {...fields.password}
             />
-          </Col>
-          <Col>
-            <Form.Control
+          </div>
+          <div className="w-1/2 px-3">
+            <input
               type="text"
-              className="muli-font"
+              className="input"
               placeholder="Confirm password"
               {...fields.passwordConfirm}
             />
-          </Col>
-        </Form.Row>
-        <div className="flex-end mt-15">
+          </div>
+        </div>
+        <div className="flex justify-end mt-4">
           {/* <!-- Submit button --> */}
           <Button variant="primary" type="submit" disabled={loading}>
             {loading ? (
@@ -91,7 +91,7 @@ export const SignupForm = () => {
             )}
           </Button>
         </div>
-      </Form>
+      </form>
     </motion.div>
   );
 };

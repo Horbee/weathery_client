@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
-import { Button, Form, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -35,42 +35,39 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       animate="enter"
       key="login"
     >
-      <h3 className="title">Log In</h3>
-      <p className="subtitle mt-15">
+      <h3 className="font-rokkit text-deepBlue text-4xl">Log In</h3>
+      <p className="text-deepBlue">
         Log in to your account to see the actual weather informations.
       </p>
-      <Form onSubmit={handleSubmit(handleSubmitSuccess)} className="mt-50">
+      <form onSubmit={handleSubmit(handleSubmitSuccess)} className="mt-16">
         {/* <!-- Email Field --> */}
-        <Form.Group>
-          <Form.Control
+        <div className="mt-4">
+          <input
             type="text"
-            className="muli-font"
+            className="input"
             placeholder="Enter your email address"
             {...fields.email}
           />
-        </Form.Group>
+        </div>
 
         {/* <!-- Password Field --> */}
-        <Form.Group>
-          <Form.Control
+        <div className="mt-4">
+          <input
             type="text"
-            className="muli-font"
+            className="input"
             placeholder="Enter your password"
             {...fields.password}
           />
-        </Form.Group>
+        </div>
 
         {/* <!-- Forgot PW link --> */}
-        <div className="flex-justify-even mt-15">
-          <p
-            onClick={openForgotPasswordModal}
-            className="link self-align-center"
-          >
+        <div className="mt-5 flex justify-between items-center">
+          <p onClick={openForgotPasswordModal} className="link">
             Forgot password?
           </p>
 
           {/* <!-- Submit button --> */}
-          <Button variant="primary" type="submit" disabled={loading}>
+          <button className="btn" type="submit" disabled={loading}>
             {loading ? (
               <Spinner animation="border" size="sm" />
             ) : (
@@ -81,9 +78,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({
                 </span>
               </>
             )}
-          </Button>
+          </button>
         </div>
-      </Form>
+      </form>
     </motion.div>
   );
 };

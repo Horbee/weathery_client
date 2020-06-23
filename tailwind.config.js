@@ -5,10 +5,10 @@ module.exports = {
       colors: {
         powder: "#f8efef",
         muted: "#838a9e",
-        gray: "#cad6e4",
         link: "#0c6787",
         linkHover: "#007bff",
-        lila: "#4c5c96"
+        lila: "#4c5c96",
+        deepBlue: "#161843"
       },
       fontFamily: {
         muli: ["Muli", "sans-serif"],
@@ -16,6 +16,8 @@ module.exports = {
       }
     }
   },
-  variants: {},
+  variants: {
+    cursor: ["responsive", "hover"]
+  },
   plugins: []
 };

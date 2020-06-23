@@ -23,12 +23,13 @@ export const FacebookOauthButton: React.FC = () => {
         console.log(error);
         createErrorToast("Error during signin via Facebook");
       }}
-      cssClass="btn btn-primary btn-lg btn-wide"
+      cssClass="btn btn-wide w-full"
       icon={
         <span className="mr-2">
           <FontAwesomeIcon icon={faFacebook} />
         </span>
       }
+      containerStyle={{ width: "47%" }}
     />
   );
 };

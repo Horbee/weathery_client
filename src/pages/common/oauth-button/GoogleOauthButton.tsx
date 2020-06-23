@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Button } from "react-bootstrap";
 import GoogleLogin from "react-google-login";
 
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -24,17 +23,15 @@ export const GoogleOauthButton: React.FC = () => {
         createErrorToast("Error during signin via Google");
       }}
       render={(props) => (
-        <Button
-          className="btn-wide"
-          variant="danger"
-          size="lg"
+        <button
+          className="btn btn-wide bg-red-600 hover:bg-red-700"
           onClick={props.onClick}
         >
           <span className="mr-2">
             <FontAwesomeIcon icon={faGoogle} />
           </span>
           <span>Google</span>
-        </Button>
+        </button>
       )}
     />
   );
