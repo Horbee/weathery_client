@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
-import { Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { forgotPasswordFormConfig } from "../../form-config/ForgotPasswordFormConfig";
@@ -52,7 +51,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
           disabled={loading}
         >
           {loading ? (
-            <Spinner animation="border" size="sm" />
+            <div className="spinner-border text-white" role="status" />
           ) : (
             <span>Submit</span>
           )}

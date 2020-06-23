@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
-import { Button, Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -78,9 +77,9 @@ export const SignupForm = () => {
         </div>
         <div className="flex justify-end mt-4">
           {/* <!-- Submit button --> */}
-          <Button variant="primary" type="submit" disabled={loading}>
+          <button className="btn" type="submit" disabled={loading}>
             {loading ? (
-              <Spinner animation="border" size="sm" />
+              <div className="spinner-border text-white" role="status" />
             ) : (
               <>
                 <span>Signup</span>
@@ -89,7 +88,7 @@ export const SignupForm = () => {
                 </span>
               </>
             )}
-          </Button>
+          </button>
         </div>
       </form>
     </motion.div>

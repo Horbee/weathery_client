@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import React, { useContext } from "react";
-import { Spinner } from "react-bootstrap";
 import { useFluentForm } from "react-fluent-form";
 
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -69,7 +68,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           {/* <!-- Submit button --> */}
           <button className="btn" type="submit" disabled={loading}>
             {loading ? (
-              <Spinner animation="border" size="sm" />
+              <div className="spinner-border text-white" role="status" />
             ) : (
               <>
                 <span>Login</span>
