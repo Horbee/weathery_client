@@ -25,13 +25,15 @@ export const StartPage = () => {
         closeFunction={closeModal}
         modalContent={<ForgotPasswordModal closeFunction={closeModal} />}
       />
-      <div className="mt-16">
-        <div className="text-white text-center">
-          <h1 className="font-rokkit text-5xl leading-min">WEATHERY</h1>
+      <div className="mt-16 md:h-screen md:mt-0 md:flex md:flex-col md:justify-center lg:mx-4 xl:flex-row xl:items-center">
+        <div className="text-white text-center xl:hidden">
+          <h1 className="font-rokkit text-5xl md:text-6xl leading-min">
+            WEATHERY
+          </h1>
           <p>What is the weather like today?</p>
         </div>
-        <div className="container-base rounded mt-6">
-          <div className="py-8 px-5 divide-y divide-gray-400">
+        <div className="container container-left mx-auto container-base rounded md:rounded-lg xl:rounded-l-lg xl:rounded-r-none mt-6 xl:m-0 xl:h-full">
+          <div className="py-8 px-5 md:px-10 md:py-10 divide-y divide-gray-400">
             <section>
               {/*container inner*/}
               <AnimatePresence>
@@ -43,9 +45,9 @@ export const StartPage = () => {
               </AnimatePresence>
             </section>
             <section className="text-center mt-4">
-              <p className="text-muted text-sm mt-2">Or log in with</p>
+              <p className="text-muted text-sm mt-2 xl:mt-8">Or log in with</p>
               {/* <!-- OAuth Buttons --> */}
-              <div className="flex justify-between mt-3">
+              <div className="flex justify-between mt-3 xl:mt-6">
                 <FacebookOauthButton />
                 <GoogleOauthButton />
               </div>
@@ -70,10 +72,18 @@ export const StartPage = () => {
             </section>
           </div>
         </div>
-        <div className="container-right hidden">
-          <h1 className="title text-light txt-big">WEATHERY</h1>
-          <p className="subtitle text-light">What is the weather like today?</p>
-          <ImageCarousel />
+        <div className="container-right container-base hidden xl:block xl:h-full p-10">
+          <div className="text-center mt-3">
+            <h1 className="font-rokkit text-white text-5xl md:text-6xl leading-min">
+              WEATHERY
+            </h1>
+            <p className="subtitle text-white">
+              What is the weather like today?
+            </p>
+          </div>
+          <div className="mt-16">
+            <ImageCarousel />
+          </div>
         </div>
       </div>
     </>

@@ -8,6 +8,15 @@ body {
   @apply bg-lila font-muli antialiased;
 }
 
+@screen xl {
+  body {
+    @apply bg-powder;
+  }
+  .container-left {
+    max-width: 608px;
+  }
+}
+
 .indicator-container {
   @apply fixed top-0;
   left: -70px;
@@ -35,6 +44,11 @@ body {
   height: 320px;
 }
 
+.container-right {
+  @apply bg-lila rounded-r-lg;
+  max-width: 449px;
+}
+
 .input {
   @apply shadow appearance-none border border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight;
 }
@@ -57,7 +71,6 @@ body {
 
 .btn-wide {
   width: 47%;
-  max-width: 207px;
   height: 55px;
 }
 
