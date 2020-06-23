@@ -1,5 +1,3 @@
-import "./BackendIndicator.scss";
-
 import React, { useContext, useEffect, useState } from "react";
 
 import { faCloud } from "@fortawesome/free-solid-svg-icons";
@@ -40,7 +38,7 @@ export const BackendIndicator = () => {
 
   return (
     <div className="indicator-container" onClick={handleClick}>
-      <p className="server-label muli-font">
+      <p className="font-muli server-label">
         Backend: <FontAwesomeIcon icon={faCloud} style={{ color }} />
       </p>
     </div>

@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Muli&family=Rokkitt:wght@700&display=swap");
+
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+.indicator-container {
+  @apply fixed top-0;
+  left: -70px;
+}
+
+.indicator-container:hover {
+  cursor: pointer;
+}
+
+.server-label {
+  transition: all 0.5s ease;
+}
+
+.server-label:hover {
+  transform: translateX(70px);
+}
+
+@import "tailwindcss/utilities";
