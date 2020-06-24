@@ -16,9 +16,13 @@ export const ResetPasswordModalContent: React.FC<ResetPasswordModalContentProps>
   closeFunction,
   token
 }) => {
-  const { values, fields, handleSubmit, reset, errors } = useFluentForm(
-    resetPasswordFormConfig
-  );
+  const {
+    values,
+    fields,
+    handleSubmit,
+    reset: resetForm,
+    errors
+  } = useFluentForm(resetPasswordFormConfig);
 
   const { resetPassword, loading } = useContext(AuthServiceContext);
 
@@ -26,7 +30,7 @@ export const ResetPasswordModalContent: React.FC<ResetPasswordModalContentProps>
     if (await resetPassword(values.password, token)) {
       closeFunction();
     } else {
-      reset();
+      resetForm();
     }
   };
 
@@ -42,7 +46,7 @@ export const ResetPasswordModalContent: React.FC<ResetPasswordModalContentProps>
           <input
             type="password"
             className="input"
-            placeholder="Enter your password"
+            placeholder="Enter your new password"
             {...fields.password}
           />
         </div>
@@ -50,7 +54,7 @@ export const ResetPasswordModalContent: React.FC<ResetPasswordModalContentProps>
           <input
             type="password"
             className="input"
-            placeholder="Confirm your password"
+            placeholder="Confirm your new password"
             {...fields.passwordConfirm}
           />
         </div>

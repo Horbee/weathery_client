@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { openWeatherMapIconURL } from "../../constants/endpoints";
 import { Weather } from "../../models/WeatherResponse";
+import { capitalize } from "../../utils/capitalize";
 import { decimal } from "../../utils/math";
-import { capitalize } from "../../utils/string";
 import {
   xFlipVariatons,
   yFlipVariatons
