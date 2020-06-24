@@ -36,7 +36,6 @@ export const StartPage = () => {
         <div className="container container-left mx-auto container-base rounded md:rounded-lg xl:rounded-l-lg xl:rounded-r-none mt-6 xl:m-0 xl:h-full">
           <div className="py-8 px-5 md:px-10 md:py-10 divide-y divide-gray-400">
             <section>
-              {/*container inner*/}
               <AnimatePresence>
                 {toggleForms ? (
                   <SignupForm />

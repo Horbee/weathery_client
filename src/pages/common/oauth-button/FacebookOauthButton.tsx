@@ -19,10 +19,9 @@ export const FacebookOauthButton: React.FC = () => {
       fields="name,email,picture"
       textButton="Facebook"
       callback={facebookLogin}
-      onFailure={(error) => {
-        console.log(error);
-        createErrorToast("Error during signin via Facebook");
-      }}
+      onFailure={(error) =>
+        createErrorToast("Error during signin via Facebook")
+      }
       cssClass="btn btn-wide w-full"
       icon={
         <span className="mr-2">

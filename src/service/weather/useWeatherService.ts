@@ -1,12 +1,10 @@
-import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
 
-import { backendURL } from "../../constants/endpoints";
 import { Weather, WeatherResponse } from "../../models/WeatherResponse";
 import { Nullable } from "../../utils/Nullable";
-import { createErrorToast } from "../../utils/toast/errorToast";
 import { TypedStorage } from "../../utils/typedStorage";
+import { axiosInstance } from "../axios/axiosIstance";
 
 type Status = "UP" | "DOWN" | "PENDING";
 
@@ -21,9 +19,7 @@ export const useWeatherService = () => {
     setStatus(null);
 
     try {
-      const response = await axios.get<{ status: Status }>(
-        backendURL("/health")
-      );
+      const response = await axiosInstance.get<{ status: Status }>("/health");
       if (response.data.status === "UP") {
         setStatus(true);
       }
@@ -41,27 +37,19 @@ export const useWeatherService = () => {
     : "DOWN";
 
   const getWeatherInfo = async (city: string) => {
-    try {
-      const response = await axios.get<WeatherResponse>(
-        backendURL(`/api/weather/${city}`),
-        {
-          headers: { Authorization: `Bearer ${TypedStorage.accessToken}` }
-        }
-      );
+    const response = await axiosInstance.get<WeatherResponse>(
+      `/api/weather/${city}`
+    );
 
-      setWeather(response.data.data);
-      setLastSearchTime(Date.now());
-      TypedStorage.citySearch = city;
-    } catch (err) {
-      console.log(err.response);
-      createErrorToast(err.response?.data?.error);
-    }
+    setWeather(response.data.data);
+    setLastSearchTime(Date.now());
+    TypedStorage.citySearch = city;
   };
 
   const timedRefreshLastCitySearch = () => {
     if (TypedStorage.citySearch && lastSearchTime) {
       if (moment(lastSearchTime).add(1, "minutes") <= moment()) {
-        console.log("time Passed");
+        // console.log("time Passed");
         getWeatherInfo(TypedStorage.citySearch);
       }
     }

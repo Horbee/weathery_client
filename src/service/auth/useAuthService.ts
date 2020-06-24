@@ -1,4 +1,3 @@
-import axios from "axios";
 import jwt from "jsonwebtoken";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -7,16 +6,15 @@ import {
   GoogleLoginResponseOffline
 } from "react-google-login";
 
-import { backendURL } from "../../constants/endpoints";
 import { CITYSEARCH } from "../../constants/localstorage";
 import {
   AccessTokenProps,
   FacebookLoginResponse
 } from "../../models/TokenResponse";
 import { Nullable } from "../../utils/Nullable";
-import { createErrorToast } from "../../utils/toast/errorToast";
 import { createSuccessToast } from "../../utils/toast/successToast";
 import { TypedStorage } from "../../utils/typedStorage";
+import { axiosInstance } from "../axios/axiosIstance";
 
 interface UserData {
   accessToken: string;
@@ -47,30 +45,20 @@ export const useAuthService = () => {
   const login = async (email: string, password: string) => {
     setLoading(true);
 
-    try {
-      const response = await axios.post<AuthResponse>(
-        backendURL("/api/auth/login"),
-        {
-          email,
-          password
-        }
-      );
-      const token = response.data.data;
-      const decoded = jwt.decode(token) as AccessTokenProps;
-      setAuth({
-        isLoggedIn: true,
-        accessToken: token,
-        city: decoded.user.city ?? null
-      });
-      TypedStorage.username = email;
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
-    } catch (err) {
-      console.log({ err });
-      if (err.response?.data?.success === false) {
-        createErrorToast(err.response.data.error);
-      }
-    }
+    const response = await axiosInstance.post<AuthResponse>("/api/auth/login", {
+      email,
+      password
+    });
+    const token = response.data.data;
+    const decoded = jwt.decode(token) as AccessTokenProps;
+    TypedStorage.username = email;
+    TypedStorage.accessToken = token;
+    TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+    setAuth({
+      isLoggedIn: true,
+      accessToken: token,
+      city: decoded.user.city ?? null
+    });
 
     setLoading(false);
   };
@@ -78,26 +66,19 @@ export const useAuthService = () => {
   const signup = async (name: string, email: string, password: string) => {
     setLoading(true);
 
-    try {
-      const response = await axios.post<AuthResponse>(backendURL("/api/auth"), {
-        email,
-        password,
-        name
-      });
-      const token = response.data.data;
-      setAuth({ isLoggedIn: true, accessToken: token, city: null });
-      const decoded = jwt.decode(token) as AccessTokenProps;
-      TypedStorage.username = email;
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
-    } catch (err) {
-      console.log({ err });
-      if (err.response?.data?.success === false) {
-        createErrorToast(err.response.data.error);
-      }
-    } finally {
-      setLoading(false);
-    }
+    const response = await axiosInstance.post<AuthResponse>("/api/auth", {
+      email,
+      password,
+      name
+    });
+    const token = response.data.data;
+    const decoded = jwt.decode(token) as AccessTokenProps;
+    TypedStorage.username = email;
+    TypedStorage.accessToken = token;
+    TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+    setAuth({ isLoggedIn: true, accessToken: token, city: null });
+
+    setLoading(false);
   };
 
   const checkLocalStorage = () => {
@@ -135,28 +116,23 @@ export const useAuthService = () => {
   const forgotPassword = async (email: string) => {
     setLoading(true);
 
-    try {
-      const response = await axios.post(
-        backendURL("/api/auth/forgotpassword"),
-        { email }
-      );
-      createSuccessToast(response.data.data);
-    } catch (err) {
-      console.log({ err });
-      if (err.response?.data?.success === false) {
-        createErrorToast(err.response.data.error);
-      }
-    } finally {
-      setLoading(false);
-    }
+    const response = await axiosInstance.post("/api/auth/forgotpassword", {
+      email
+    });
+    createSuccessToast(response.data.data);
+
+    setLoading(false);
   };
 
-  const resetPassword = async (password: string, token: string) => {
+  const resetPassword = async (
+    password: string,
+    token: string
+  ): Promise<boolean> => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        backendURL(`/api/auth/resetpassword?token=${token}`),
+      const response = await axiosInstance.post(
+        `/api/auth/resetpassword?token=${token}`,
         {
           password
         }
@@ -164,10 +140,6 @@ export const useAuthService = () => {
       createSuccessToast(response.data.data);
       return true;
     } catch (err) {
-      console.log({ err });
-      if (err.response?.data?.success === false) {
-        createErrorToast(err.response.data.error);
-      }
       return false;
     } finally {
       setLoading(false);
@@ -175,84 +147,67 @@ export const useAuthService = () => {
   };
 
   const googleLogin = async (
-    response: GoogleLoginResponse | GoogleLoginResponseOffline
+    googleResponse: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => {
-    console.log(response);
-
-    const idToken = (response as GoogleLoginResponse).tokenObj.id_token;
+    const idToken = (googleResponse as GoogleLoginResponse).tokenObj.id_token;
     //const accessToken = (response as GoogleLoginResponse).tokenObj.access_token;
     // const expiresAt = (response as GoogleLoginResponse).tokenObj.expires_at;
-    const email = (response as GoogleLoginResponse).profileObj.email;
-    const name = (response as GoogleLoginResponse).profileObj.name;
+    const email = (googleResponse as GoogleLoginResponse).profileObj.email;
+    const name = (googleResponse as GoogleLoginResponse).profileObj.name;
     //const googleId = (response as GoogleLoginResponse).profileObj.googleId;
 
-    try {
-      const response = await axios.post<AuthResponse>(
-        backendURL("/api/oauth/google"),
-        {
-          email,
-          name,
-          idToken
-        }
-      );
-      const token = response.data.data;
-      const decoded = jwt.decode(token) as AccessTokenProps;
-      setAuth({
-        isLoggedIn: true,
-        accessToken: token,
-        city: decoded.user.city ?? null
-      });
-      // TypedStorage.username = email;
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
-    } catch (err) {
-      console.log({ err });
-      if (err.response?.data?.success === false) {
-        createErrorToast(err.response.data.error);
+    const response = await axiosInstance.post<AuthResponse>(
+      "/api/oauth/google",
+      {
+        email,
+        name,
+        idToken
       }
-    } finally {
-      setLoading(false);
-    }
+    );
+    const token = response.data.data;
+    const decoded = jwt.decode(token) as AccessTokenProps;
+    setAuth({
+      isLoggedIn: true,
+      accessToken: token,
+      city: decoded.user.city ?? null
+    });
+    // TypedStorage.username = email;
+    TypedStorage.accessToken = token;
+    TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+    setLoading(false);
   };
 
-  const facebookLogin = async (response: FacebookLoginResponse) => {
+  const facebookLogin = async (facebookResponse: FacebookLoginResponse) => {
     setLoading(true);
 
-    console.log(response);
+    // console.log(facebookResponse);
     const {
       accessToken,
       /*id: facebookId,*/ email,
       name
       // expiresIn
-    } = response;
+    } = facebookResponse;
 
-    try {
-      const response = await axios.post<AuthResponse>(
-        backendURL("/api/oauth/facebook"),
-        {
-          email,
-          name,
-          accessToken
-        }
-      );
-      const token = response.data.data;
-      const decoded = jwt.decode(token) as AccessTokenProps;
-      setAuth({
-        isLoggedIn: true,
-        accessToken: token,
-        city: decoded.user.city ?? null
-      });
-      // TypedStorage.username = email!;
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
-    } catch (err) {
-      console.log({ err });
-      if (err.response?.data?.success === false) {
-        createErrorToast(err.response.data.error);
+    const response = await axiosInstance.post<AuthResponse>(
+      "/api/oauth/facebook",
+      {
+        email,
+        name,
+        accessToken
       }
-    } finally {
-      setLoading(false);
-    }
+    );
+    const token = response.data.data;
+    const decoded = jwt.decode(token) as AccessTokenProps;
+    setAuth({
+      isLoggedIn: true,
+      accessToken: token,
+      city: decoded.user.city ?? null
+    });
+    // TypedStorage.username = email!;
+    TypedStorage.accessToken = token;
+    TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+
+    setLoading(false);
   };
 
   return {

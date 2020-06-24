@@ -18,10 +18,7 @@ export const GoogleOauthButton: React.FC = () => {
       clientId={clientId}
       buttonText="Google"
       onSuccess={googleLogin}
-      onFailure={(error) => {
-        console.log(error);
-        createErrorToast("Error during signin via Google");
-      }}
+      onFailure={(error) => createErrorToast("Error during signin via Google")}
       render={(props) => (
         <button
           className="btn btn-wide bg-red-600 hover:bg-red-700"

@@ -19,7 +19,6 @@ export const FlipCard: React.FC<FlipCardProps> = ({ frontSide, backSide }) => {
     intervalRef.current = id;
 
     return () => {
-      console.log("clear");
       clearInterval(intervalRef.current!);
     };
   }, []);
