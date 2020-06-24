@@ -10,7 +10,7 @@ body {
 
 @screen xl {
   body {
-    @apply bg-powder;
+    @apply bg-powder overflow-x-hidden;
   }
   .container-left {
     max-width: 608px;
