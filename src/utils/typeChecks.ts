@@ -1,11 +1,16 @@
+import { ErrorResponse } from "../models/ErrorResponse";
 import { hasAllKeys } from "./hasAllKeys";
 
 export const isErrorReponse = (data: any) => {
-  return (
-    hasAllKeys(data, ["success", "error"]) &&
-    data.succcess === false &&
-    (typeof data.error === "string" || isStringArray(data.error))
-  );
+  if (hasAllKeys(data, ["success", "error"])) {
+    return (
+      (data as ErrorResponse).success === false &&
+      (typeof (data as ErrorResponse).error === "string" ||
+        isStringArray((data as ErrorResponse).error))
+    );
+  }
+
+  return false;
 };
 
 export const isStringArray = (value: any) => {
