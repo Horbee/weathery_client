@@ -97,7 +97,6 @@ export const useAuthService = () => {
     if (accessToken) {
       if (tokenExpirationDate && tokenExpirationDate > moment()) {
         const decoded = jwt.decode(accessToken) as AccessTokenProps;
-
         setAuth({
           isLoggedIn: true,
           accessToken,
@@ -173,13 +172,13 @@ export const useAuthService = () => {
       );
       const token = response.data.data;
       const decoded = jwt.decode(token) as AccessTokenProps;
+      TypedStorage.accessToken = token;
+      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
       setAuth({
         isLoggedIn: true,
         accessToken: token,
         city: decoded.user.city ?? null
       });
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } finally {
       setLoading(false);
     }
@@ -200,13 +199,13 @@ export const useAuthService = () => {
       );
       const token = response.data.data;
       const decoded = jwt.decode(token) as AccessTokenProps;
+      TypedStorage.accessToken = token;
+      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
       setAuth({
         isLoggedIn: true,
         accessToken: token,
         city: decoded.user.city ?? null
       });
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
     } finally {
       setLoading(false);
     }
