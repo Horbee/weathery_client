@@ -6,7 +6,7 @@ import { handleRequest } from "./handleRequest";
 
 export const instance = axios.create({
   baseURL: apiBaseUrl,
-  timeout: 1000,
+  timeout: 30000,
   headers: {
     "Content-Type": "application/json"
   }
