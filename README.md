@@ -4,6 +4,8 @@ Weathery is a demo application which fetches and represents the current weather 
 
 The front end is built with React and Typescript using `Functional Components, Hooks and the Context API`.
 
+Application is available  [here](https://weatheryclient.netlify.app/)
+
 ### Get started
 
 After you cloned the repository run `npm install` to install the required dependencies and `npm start` to start the application.
