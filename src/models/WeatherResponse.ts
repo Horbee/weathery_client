@@ -1,6 +1,6 @@
 export interface Weather {
   coord: { lon: number; lat: number };
-  weather: [{ id: number; main: string; description: string; icon: string }];
+  weather: WeatherDescription[];
   base: string;
   main: {
     temp: number;
@@ -25,6 +25,13 @@ export interface Weather {
   id: number;
   name: string;
   cod: number;
+}
+
+export interface WeatherDescription {
+  id: number;
+  main: string;
+  description: string;
+  icon: string;
 }
 
 export interface WeatherResponse {

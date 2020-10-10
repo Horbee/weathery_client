@@ -15,6 +15,7 @@ export const HomePage = () => {
   const {
     getWeatherInfo,
     getCities,
+    getCityForecast,
     clearWeatherInfo,
     timedRefreshLastCitySearch,
     weather,
@@ -50,7 +51,11 @@ export const HomePage = () => {
           />
         </div>
         <div className="w-full mt-8 md:m-0 md:w-1/2">
-          <CitySearch queryFunction={getWeatherInfo} citySearch={getCities} />
+          <CitySearch
+            queryFunction={getWeatherInfo}
+            citySearch={getCities}
+            cityForecast={getCityForecast}
+          />
         </div>
 
         <div className="flex justify-between mt-3">

@@ -1,7 +1,8 @@
 import moment from "moment";
 import { useState } from "react";
 
-import { CitySearchResponse } from "../../models/CitySearchResponse";
+import { CityForecastResponse } from "../../models/CityForecastResponse";
+import { City, CitySearchResponse } from "../../models/CitySearchResponse";
 import { Weather, WeatherResponse } from "../../models/WeatherResponse";
 import { Nullable } from "../../utils/Nullable";
 import { TypedStorage } from "../../utils/typedStorage";
@@ -38,21 +39,30 @@ export const useWeatherService = () => {
     : "DOWN";
 
   const getCities = async (search: string) => {
-    const {data} = await axiosInstance.get<CitySearchResponse>(
+    const { data } = await axiosInstance.get<CitySearchResponse>(
       `/api/cities/${search}`
     );
-      
+
     return data.data;
   };
 
-  const getWeatherInfo = async (city: string) => {
+  const getCityForecast = async (city: City) => {
+    const { data } = await axiosInstance.post<CityForecastResponse>(
+      `/api/weather/forecast`,
+      { city }
+    );
+
+    return data.data;
+  };
+
+  const getWeatherInfo = async (cityName: string) => {
     const response = await axiosInstance.get<WeatherResponse>(
-      `/api/weather/${city}`
+      `/api/weather/${cityName}`
     );
 
     setWeather(response.data.data);
     setLastSearchTime(Date.now());
-    TypedStorage.citySearch = city;
+    TypedStorage.citySearch = cityName;
   };
 
   const timedRefreshLastCitySearch = () => {
@@ -70,6 +80,7 @@ export const useWeatherService = () => {
     checkBackendStatus,
     getWeatherInfo,
     getCities,
+    getCityForecast,
     timedRefreshLastCitySearch,
     clearWeatherInfo,
     lastSearchTime,
