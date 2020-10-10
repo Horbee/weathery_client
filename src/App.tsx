@@ -1,5 +1,6 @@
 import "./assets/styles/main.css";
 import "react-toastify/dist/ReactToastify.css";
+import "./form-config/custom-fluent-fields/config";
 
 import React from "react";
 import { Route, Switch } from "react-router-dom";
