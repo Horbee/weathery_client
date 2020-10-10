@@ -1,20 +1,25 @@
 import React from "react";
 import { useFluentForm } from "react-fluent-form";
+import AsyncSelect from "react-select/async";
 
+import { useDebounce } from "../../custom-components/hooks/useDebounce";
 import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
+import { City } from "../../models/CitySearchResponse";
 
 interface CitySearchProps {
   queryFunction: (city: string) => Promise<void>;
+  citySearch: (search: string) => Promise<City[]>;
 }
 
-export const CitySearch: React.FC<CitySearchProps> = ({ queryFunction }) => {
-  const { values, fields, handleSubmit, reset, validity } = useFluentForm(
-    citySearchFormConfig
-  );
+export const CitySearch: React.FC<CitySearchProps> = ({
+  queryFunction,
+  citySearch
+}) => {
+  const { values, fields, handleSubmit } = useFluentForm(citySearchFormConfig);
 
   const handleSubmitSuccess = () => {
-    queryFunction(values.city);
-    reset();
+    queryFunction(values.city!.name);
+    console.log(values.city);
   };
 
   return (
@@ -23,14 +28,17 @@ export const CitySearch: React.FC<CitySearchProps> = ({ queryFunction }) => {
       className="flex items-center"
     >
       <div className="w-full m-1">
-        <input
-          type="text"
-          className="input"
+        <AsyncSelect<City>
           placeholder="Search for City..."
-          {...fields.city}
+          cacheOptions
+          loadOptions={useDebounce(citySearch)}
+          getOptionLabel={(city) => city.name}
+          getOptionValue={(city) => city.name}
+          onChange={fields.city.onChange as any}
+          value={fields.city.value}
         />
       </div>
-      <button className="btn" type="submit" disabled={!validity.city}>
+      <button className="btn" type="submit">
         Search
       </button>
     </form>

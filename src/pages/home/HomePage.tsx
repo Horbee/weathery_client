@@ -14,6 +14,7 @@ export const HomePage = () => {
   const { clearAuth, auth } = useContext(AuthServiceContext);
   const {
     getWeatherInfo,
+    getCities,
     clearWeatherInfo,
     timedRefreshLastCitySearch,
     weather,
@@ -49,7 +50,7 @@ export const HomePage = () => {
           />
         </div>
         <div className="w-full mt-8 md:m-0 md:w-1/2">
-          <CitySearch queryFunction={getWeatherInfo} />
+          <CitySearch queryFunction={getWeatherInfo} citySearch={getCities} />
         </div>
 
         <div className="flex justify-between mt-3">

@@ -1,12 +1,15 @@
 import { createForm, field } from "react-fluent-form";
 import * as yup from "yup";
 
+import { City } from "../models/CitySearchResponse";
+import { Nullable } from "../utils/Nullable";
+
 interface CitySearchForm {
-  city: string;
+  city: Nullable<City>;
 }
 
 export const citySearchFormConfig = createForm<CitySearchForm>()({
-  city: field.text().validateOnChange()
+  city: field.singleSelect<City>(null)
 }).withValidation({
-  city: yup.string().required()
+  city: yup.object().required()
 });

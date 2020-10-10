@@ -1,6 +1,7 @@
 import moment from "moment";
 import { useState } from "react";
 
+import { CitySearchResponse } from "../../models/CitySearchResponse";
 import { Weather, WeatherResponse } from "../../models/WeatherResponse";
 import { Nullable } from "../../utils/Nullable";
 import { TypedStorage } from "../../utils/typedStorage";
@@ -36,6 +37,14 @@ export const useWeatherService = () => {
     ? "PENDING"
     : "DOWN";
 
+  const getCities = async (search: string) => {
+    const {data} = await axiosInstance.get<CitySearchResponse>(
+      `/api/cities/${search}`
+    );
+      
+    return data.data;
+  };
+
   const getWeatherInfo = async (city: string) => {
     const response = await axiosInstance.get<WeatherResponse>(
       `/api/weather/${city}`
@@ -60,6 +69,7 @@ export const useWeatherService = () => {
   return {
     checkBackendStatus,
     getWeatherInfo,
+    getCities,
     timedRefreshLastCitySearch,
     clearWeatherInfo,
     lastSearchTime,
