@@ -4,13 +4,13 @@ import AsyncSelect from "react-select/async";
 
 import { useDebounce } from "../../custom-components/hooks/useDebounce";
 import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
-import { CityForecast } from "../../models/CityForecastResponse";
 import { City } from "../../models/CitySearchResponse";
+import { Forecast, ForecastResponse } from "../../models/ForecastResponse";
 
 interface CitySearchProps {
   queryFunction: (cityName: string) => Promise<void>;
   citySearch: (search: string) => Promise<City[]>;
-  cityForecast: (city: City) => Promise<CityForecast>;
+  cityForecast: (city: City) => Promise<ForecastResponse>;
 }
 
 export const CitySearch: React.FC<CitySearchProps> = ({

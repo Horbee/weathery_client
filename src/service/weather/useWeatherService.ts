@@ -1,8 +1,8 @@
 import moment from "moment";
 import { useState } from "react";
 
-import { CityForecastResponse } from "../../models/CityForecastResponse";
 import { City, CitySearchResponse } from "../../models/CitySearchResponse";
+import { ForecastResponse } from "../../models/ForecastResponse";
 import { Weather, WeatherResponse } from "../../models/WeatherResponse";
 import { Nullable } from "../../utils/Nullable";
 import { TypedStorage } from "../../utils/typedStorage";
@@ -47,12 +47,12 @@ export const useWeatherService = () => {
   };
 
   const getCityForecast = async (city: City) => {
-    const { data } = await axiosInstance.post<CityForecastResponse>(
+    const { data } = await axiosInstance.post<ForecastResponse>(
       `/api/weather/forecast`,
       { city }
     );
 
-    return data.data;
+    return data;
   };
 
   const getWeatherInfo = async (cityName: string) => {

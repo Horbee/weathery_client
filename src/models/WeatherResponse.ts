@@ -29,7 +29,7 @@ export interface Weather {
 
 export interface WeatherDescription {
   id: number;
-  main: string;
+  main: string; // Group of weather parameters (Rain, Snow, Extreme etc.)
   description: string;
   icon: string;
 }

@@ -1,24 +1,24 @@
 import { WeatherDescription } from "./WeatherResponse";
 
-export interface CityForecast {
+export interface Forecast {
   lat: number;
   lon: number;
-  timezone: string;
-  timezone_offset: number;
+  timezone: string; // Timezone name
+  timezone_offset: number; // Shift in seconds from UTC
   current: {
-    dt: number;
+    dt: number; // Current time, Unix, UTC
     sunrise: number;
     sunset: number;
     temp: number;
     feels_like: number;
-    pressure: number;
-    humidity: number;
-    dew_point: number;
-    uvi: number;
-    clouds: number;
-    visibility: number;
-    wind_speed: number;
-    wind_deg: number;
+    pressure: number; // Atmospheric pressure on the sea level, hPa
+    humidity: number; // Humidity, %
+    dew_point: number; // Atmospheric temperature below which water droplets begin to condense and dew can form.
+    uvi: number; // Midday UV index
+    clouds: number; // Cloudiness, %
+    visibility: number; // Average visibility, meters
+    wind_speed: number; // Wind speed metre/sec
+    wind_deg: number; // Wind direction, degrees
     weather: WeatherDescription[];
   };
   minutely: Precipitation[];
@@ -68,18 +68,19 @@ interface HourlyForecast {
   wind_speed: number;
   wind_deg: number;
   weather: WeatherDescription[];
-  pop: number;
+  pop: number; // Probability of precipitation
   rain?: {
-    "1h": number;
+    "1h": number; // Rain volume for last hour, mm
   };
 }
 
 export interface Precipitation {
-  dt: number;
-  precipitation: number;
+  dt: number; // Time of the forecasted data, unix, UTC
+  precipitation: number; // Precipitation volume, mm
 }
 
-export interface CityForecastResponse {
+export interface ForecastResponse {
   success: boolean;
-  data: CityForecast;
+  cityName: string;
+  forecast: Forecast;
 }
