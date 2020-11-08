@@ -21,9 +21,9 @@ export interface Forecast {
     wind_deg: number; // Wind direction, degrees
     weather: WeatherDescription[];
   };
-  minutely: Precipitation[];
-  hourly: HourlyForecast[];
-  daily: DailyForecast[];
+  minutely: Precipitation[]; // for 1 H
+  hourly: HourlyForecast[]; // for 48 H
+  daily: DailyForecast[]; // for 7 D
 }
 
 interface DailyForecast {
