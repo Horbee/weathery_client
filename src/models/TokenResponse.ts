@@ -1,5 +1,7 @@
 import { ReactFacebookLoginInfo } from "react-facebook-login";
 
+import { City } from "./CitySearchResponse";
+
 export interface FacebookLoginResponse extends ReactFacebookLoginInfo {
   data_access_expiration_time: number;
   expiresIn: number;
@@ -15,7 +17,7 @@ export interface AccessTokenProps {
   user: {
     id: string;
     name: string;
-    city?: string;
+    city?: City;
   };
 }
 

@@ -1,16 +1,11 @@
 import jwt from "jsonwebtoken";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import {
-  GoogleLoginResponse,
-  GoogleLoginResponseOffline
-} from "react-google-login";
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
 
 import { CITYSEARCH } from "../../constants/localstorage";
-import {
-  AccessTokenProps,
-  FacebookLoginResponse
-} from "../../models/TokenResponse";
+import { City } from "../../models/CitySearchResponse";
+import { AccessTokenProps, FacebookLoginResponse } from "../../models/TokenResponse";
 import { Nullable } from "../../utils/Nullable";
 import { createSuccessToast } from "../../utils/toast/successToast";
 import { TypedStorage } from "../../utils/typedStorage";
@@ -19,7 +14,7 @@ import { axiosInstance } from "../axios/axiosIstance";
 interface UserData {
   accessToken: string;
   isLoggedIn: boolean;
-  city: Nullable<string>;
+  city: Nullable<City>;
 }
 
 interface AuthResponse {

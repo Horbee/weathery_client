@@ -11,7 +11,7 @@ import { CitySearch } from "./CitySearch";
 import { WeatherGrid } from "./WeatherGrid";
 
 export const HomePage = () => {
-  const { clearAuth } = useContext(AuthServiceContext);
+  const { clearAuth, auth } = useContext(AuthServiceContext);
   const {
     getCities,
     getCityForecast,
@@ -30,7 +30,8 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
-    const lastCity = TypedStorage.citySearch;
+    // TODO: use explicit endpoint to fetch this info
+    const lastCity = auth.city || TypedStorage.citySearch;
     if (lastCity) {
       getCityForecast(lastCity);
     }
