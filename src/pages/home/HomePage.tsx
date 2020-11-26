@@ -11,9 +11,8 @@ import { CitySearch } from "./CitySearch";
 import { WeatherGrid } from "./WeatherGrid";
 
 export const HomePage = () => {
-  const { clearAuth, auth } = useContext(AuthServiceContext);
+  const { clearAuth } = useContext(AuthServiceContext);
   const {
-    getWeatherInfo,
     getCities,
     getCityForecast,
     clearWeatherInfo,
@@ -31,18 +30,17 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
-    const lastCity = TypedStorage.citySearch || auth.city;
-
+    const lastCity = TypedStorage.citySearch;
     if (lastCity) {
-      getWeatherInfo(lastCity);
+      getCityForecast(lastCity);
     }
     // eslint-disable-next-line
   }, []);
 
   return (
     <section className="container mx-auto">
-      <div className="my-4 md:flex md:items-center md:justify-between">
-        <div className="hidden md:block">
+      <div className="my-4 flex items-center justify-between">
+        <div>
           <RoundedButton
             tooltipText={"Refresh"}
             tooltipClassName="ml-4"
@@ -51,20 +49,10 @@ export const HomePage = () => {
             icon={faRedo}
           />
         </div>
-        <div className="w-full mt-8 md:m-0 md:w-1/2">
+        <div className="w-full md:w-1/2">
           <CitySearch citySearch={getCities} cityForecast={getCityForecast} />
         </div>
-
-        <div className="flex justify-between mt-3">
-          <div className="md:hidden">
-            <RoundedButton
-              tooltipText={"Refresh"}
-              disabled={!lastSearchTime}
-              onClick={refreshCitySearch}
-              icon={faRedo}
-            />
-          </div>
-
+        <div>
           <RoundedButton
             tooltipText={"Logout"}
             tooltipClassName="-ml-24"

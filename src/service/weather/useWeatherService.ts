@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { City, CitySearchResponse } from "../../models/CitySearchResponse";
 import { Forecast, ForecastResponse } from "../../models/ForecastResponse";
-import { Weather, WeatherResponse } from "../../models/WeatherResponse";
 import { Nullable } from "../../utils/Nullable";
 import { TypedStorage } from "../../utils/typedStorage";
 import { axiosInstance } from "../axios/axiosIstance";
@@ -13,7 +12,6 @@ type Status = "UP" | "DOWN" | "PENDING";
 export const useWeatherService = () => {
   const [status, setStatus] = useState<Nullable<boolean>>(null);
   const [loading, setLoading] = useState(false);
-  const [weather, setWeather] = useState<Nullable<Weather>>(null);
   const [weatherForecast, setWeatherForecast] = useState<Nullable<Forecast>>(
     null
   );
@@ -57,32 +55,22 @@ export const useWeatherService = () => {
     );
     setWeatherForecast(data.forecast);
     setLastCity(city);
-  };
-
-  const getWeatherInfo = async (cityName: string) => {
-    const response = await axiosInstance.get<WeatherResponse>(
-      `/api/weather/${cityName}`
-    );
-
-    setWeather(response.data.data);
     setLastSearchTime(Date.now());
-    TypedStorage.citySearch = cityName;
+    TypedStorage.citySearch = city;
   };
 
   const timedRefreshLastCitySearch = () => {
     if (TypedStorage.citySearch && lastSearchTime) {
       if (moment(lastSearchTime).add(1, "minutes") <= moment()) {
-        // console.log("time Passed");
-        getWeatherInfo(TypedStorage.citySearch);
+        getCityForecast(TypedStorage.citySearch);
       }
     }
   };
 
-  const clearWeatherInfo = () => setWeather(null);
+  const clearWeatherInfo = () => setWeatherForecast(null);
 
   return {
     checkBackendStatus,
-    getWeatherInfo,
     getCities,
     getCityForecast,
     timedRefreshLastCitySearch,
@@ -90,7 +78,6 @@ export const useWeatherService = () => {
     lastSearchTime,
     loading,
     backendState,
-    weather,
     weatherForecast,
     lastCity
   };

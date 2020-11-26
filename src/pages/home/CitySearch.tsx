@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFluentForm } from "react-fluent-form";
 import AsyncSelect from "react-select/async";
 
@@ -23,6 +23,12 @@ export const CitySearch: React.FC<CitySearchProps> = ({
     await cityForecast(values.city!);
   };
 
+  useEffect(() => {
+    if (values.city) {
+      handleSubmitSuccess();
+    }
+  }, [values.city]);
+
   return (
     <form
       onSubmit={handleSubmit(handleSubmitSuccess)}
@@ -39,9 +45,6 @@ export const CitySearch: React.FC<CitySearchProps> = ({
           value={fields.city.value}
         />
       </div>
-      <button className="btn" type="submit">
-        Search
-      </button>
     </form>
   );
 };

@@ -1,21 +1,19 @@
 import moment, { Moment } from "moment";
 
 import {
-  ACCESS_TOKEN,
-  CITYSEARCH,
-  EXPIRES_AT,
-  TypedStorageItem,
-  USERNAME
+    ACCESS_TOKEN, CITYSEARCH, EXPIRES_AT, TypedStorageItem, USERNAME
 } from "../constants/localstorage";
+import { City } from "../models/CitySearchResponse";
 import { Nullable } from "./Nullable";
 
 export class TypedStorage {
-  public static get citySearch(): string {
-    return localStorage.getItem(CITYSEARCH) || "";
+  public static get citySearch(): Nullable<City> {
+    const cityString = localStorage.getItem(CITYSEARCH);
+    return cityString ? JSON.parse(cityString) : null;
   }
 
-  public static set citySearch(citySearch: string) {
-    localStorage.setItem(CITYSEARCH, citySearch);
+  public static set citySearch(city: Nullable<City>) {
+    localStorage.setItem(CITYSEARCH, JSON.stringify(city));
   }
 
   public static get username(): string {

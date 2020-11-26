@@ -1,3 +1,4 @@
+// TODO: delete if not in use
 export interface Weather {
   coord: { lon: number; lat: number };
   weather: WeatherDescription[];
