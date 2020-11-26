@@ -55,6 +55,5 @@ export class TypedStorage {
   public static clearAuth() {
     localStorage.removeItem(EXPIRES_AT);
     localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem(CITYSEARCH);
   }
 }
