@@ -2,7 +2,7 @@ import moment from "moment";
 import { useState } from "react";
 
 import { City, CitySearchResponse } from "../../models/CitySearchResponse";
-import { ForecastResponse } from "../../models/ForecastResponse";
+import { Forecast, ForecastResponse } from "../../models/ForecastResponse";
 import { Weather, WeatherResponse } from "../../models/WeatherResponse";
 import { Nullable } from "../../utils/Nullable";
 import { TypedStorage } from "../../utils/typedStorage";
@@ -14,6 +14,10 @@ export const useWeatherService = () => {
   const [status, setStatus] = useState<Nullable<boolean>>(null);
   const [loading, setLoading] = useState(false);
   const [weather, setWeather] = useState<Nullable<Weather>>(null);
+  const [weatherForecast, setWeatherForecast] = useState<Nullable<Forecast>>(
+    null
+  );
+  const [lastCity, setLastCity] = useState<Nullable<City>>(null);
   const [lastSearchTime, setLastSearchTime] = useState<Nullable<number>>(null);
 
   const checkBackendStatus = async () => {
@@ -51,8 +55,8 @@ export const useWeatherService = () => {
       `/api/weather/forecast`,
       { city }
     );
-
-    return data;
+    setWeatherForecast(data.forecast);
+    setLastCity(city);
   };
 
   const getWeatherInfo = async (cityName: string) => {
@@ -86,6 +90,8 @@ export const useWeatherService = () => {
     lastSearchTime,
     loading,
     backendState,
-    weather
+    weather,
+    weatherForecast,
+    lastCity
   };
 };

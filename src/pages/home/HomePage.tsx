@@ -18,7 +18,8 @@ export const HomePage = () => {
     getCityForecast,
     clearWeatherInfo,
     timedRefreshLastCitySearch,
-    weather,
+    weatherForecast,
+    lastCity,
     lastSearchTime
   } = useContext(WeatherServiceContext);
 
@@ -51,11 +52,7 @@ export const HomePage = () => {
           />
         </div>
         <div className="w-full mt-8 md:m-0 md:w-1/2">
-          <CitySearch
-            queryFunction={getWeatherInfo}
-            citySearch={getCities}
-            cityForecast={getCityForecast}
-          />
+          <CitySearch citySearch={getCities} cityForecast={getCityForecast} />
         </div>
 
         <div className="flex justify-between mt-3">
@@ -77,8 +74,8 @@ export const HomePage = () => {
         </div>
       </div>
       <div className="mt-4">
-        {weather ? (
-          <WeatherGrid weather={weather} />
+        {weatherForecast && lastCity ? (
+          <WeatherGrid weather={weatherForecast} lastCity={lastCity} />
         ) : (
           <section
             style={{ backgroundImage: `url(${gradientImg})` }}

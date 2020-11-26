@@ -8,34 +8,39 @@ import { faCity } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { openWeatherMapIconURL } from "../../constants/endpoints";
-import { Weather } from "../../models/WeatherResponse";
+import { City } from "../../models/CitySearchResponse";
+import { Forecast } from "../../models/ForecastResponse";
 import { capitalize } from "../../utils/capitalize";
 import { decimal } from "../../utils/math";
-import {
-  xFlipVariatons,
-  yFlipVariatons
-} from "../common/variants/framerVariants";
+import { xFlipVariatons, yFlipVariatons } from "../common/variants/framerVariants";
 import { FlipCard } from "./grid-components/FlipCard";
 import { SingleValueCard } from "./grid-components/SingleValueCard";
 
 interface WeatherGridProps {
-  weather: Weather;
+  // weather: Weather;
+  weather: Forecast;
+  lastCity: City;
 }
 
-export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
-  const maxTempMemo = useMemo(() => decimal(weather.main.temp_max), [
-    weather.main.temp_max
+export const WeatherGrid: React.FC<WeatherGridProps> = ({
+  weather,
+  lastCity
+}) => {
+  const maxTempMemo = useMemo(
+    () => decimal(weather.daily[0]?.temp.max) || 0, //TODO
+    [weather.daily]
+  );
+
+  const minTempMemo = useMemo(() => decimal(weather.daily[0]?.temp.min || 0), [
+    weather.daily
   ]);
 
-  const minTempMemo = useMemo(() => decimal(weather.main.temp_min), [
-    weather.main.temp_min
+  const tempMemo = useMemo(() => decimal(weather.current.temp), [
+    weather.current.temp
   ]);
 
-  const tempMemo = useMemo(() => decimal(weather.main.temp), [
-    weather.main.temp
-  ]);
-  const feelsLikeMemo = useMemo(() => decimal(weather.main.feels_like), [
-    weather.main.feels_like
+  const feelsLikeMemo = useMemo(() => decimal(weather.current.feels_like), [
+    weather.current.feels_like
   ]);
 
   return (
@@ -80,7 +85,7 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
       </SingleValueCard>
       <SingleValueCard className="bg2">
         <h2>
-          {weather.wind.speed} <span>m/s</span>
+          {weather.current.wind_speed} <span>m/s</span>
         </h2>
         <p>Wind</p>
       </SingleValueCard>
@@ -88,9 +93,9 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
         <h2>
           <FontAwesomeIcon icon={faCity} />
         </h2>
-        <p>{weather.name}</p>
+        <p>{lastCity.name}</p>
       </div>
-      {weather.weather.map((values) => (
+      {weather.current.weather.map((values) => (
         <SingleValueCard className="bg1" key={values.id}>
           <img src={openWeatherMapIconURL(values.icon)} alt={values.main} />
           <p>{capitalize(values.description)}</p>
@@ -107,7 +112,7 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
             transition={{ rotateX: { duration: 0.5 } }}
             key="front"
           >
-            <h2>{moment(weather.sys.sunrise * 1000).format("HH:mm")}</h2>
+            <h2>{moment(weather.current.sunrise * 1000).format("HH:mm")}</h2>
             <p>Sunrise</p>
           </motion.div>
         }
@@ -121,26 +126,26 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({ weather }) => {
             transition={{ rotateX: { duration: 0.5 } }}
             key="back"
           >
-            <h2>{moment(weather.sys.sunset * 1000).format("HH:mm")}</h2>
+            <h2>{moment(weather.current.sunset * 1000).format("HH:mm")}</h2>
             <p>Sunset</p>
           </motion.div>
         }
       />
       <SingleValueCard className="bg1">
         <h2>
-          {weather.main.pressure} <span>hPa</span>
+          {weather.current.pressure} <span>hPa</span>
         </h2>
         <p>Pressure</p>
       </SingleValueCard>
       <SingleValueCard className="bg2">
         <h2>
-          {weather.main.humidity} <span>%</span>
+          {weather.current.humidity} <span>%</span>
         </h2>
         <p>Humidity</p>
       </SingleValueCard>
       <SingleValueCard className="bg2">
         <h2>
-          {weather.clouds.all} <span>%</span>
+          {weather.current.clouds} <span>%</span>
         </h2>
         <p>Cloudiness</p>
       </SingleValueCard>

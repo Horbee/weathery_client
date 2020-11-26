@@ -5,25 +5,22 @@ import AsyncSelect from "react-select/async";
 import { useDebounce } from "../../custom-components/hooks/useDebounce";
 import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
 import { City } from "../../models/CitySearchResponse";
-import { Forecast, ForecastResponse } from "../../models/ForecastResponse";
 
 interface CitySearchProps {
-  queryFunction: (cityName: string) => Promise<void>;
   citySearch: (search: string) => Promise<City[]>;
-  cityForecast: (city: City) => Promise<ForecastResponse>;
+  cityForecast: (city: City) => Promise<void>;
 }
 
+// TODO: save last search's options as default values
+
 export const CitySearch: React.FC<CitySearchProps> = ({
-  queryFunction,
   citySearch,
   cityForecast
 }) => {
   const { values, fields, handleSubmit } = useFluentForm(citySearchFormConfig);
 
-  const handleSubmitSuccess = () => {
-    // queryFunction(values.city!.name);
-    console.log(cityForecast(values.city!));
-    console.log(values.city);
+  const handleSubmitSuccess = async () => {
+    await cityForecast(values.city!);
   };
 
   return (
