@@ -35,12 +35,10 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({
     weather.daily
   ]);
 
-  const tempMemo = useMemo(() => decimal(weather.current.temp), [
-    weather.current.temp
-  ]);
+  const tempMemo = useMemo(() => decimal(weather.current.temp), [weather]);
 
   const feelsLikeMemo = useMemo(() => decimal(weather.current.feels_like), [
-    weather.current.feels_like
+    weather
   ]);
 
   return (

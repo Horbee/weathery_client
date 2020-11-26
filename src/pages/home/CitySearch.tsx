@@ -27,6 +27,7 @@ export const CitySearch: React.FC<CitySearchProps> = ({
     if (values.city) {
       handleSubmitSuccess();
     }
+    // eslint-disable-next-line
   }, [values.city]);
 
   return (
