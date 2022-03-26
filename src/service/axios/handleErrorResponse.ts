@@ -1,8 +1,8 @@
-import { AxiosError } from "axios";
+import { AxiosError } from 'axios'
 
-import { ErrorResponse } from "../../models/ErrorResponse";
-import { createErrorToast } from "../../utils/toast/errorToast";
-import { isErrorReponse } from "../../utils/typeChecks";
+import { ErrorResponse } from '../../models/ErrorResponse'
+import { createErrorToast } from '../../utils/toast/errorToast'
+import { isErrorReponse } from '../../utils/typeChecks'
 
 export const handleErrorResponse = async (error: AxiosError<ErrorResponse>) => {
   const { response } = error;

@@ -1,7 +1,7 @@
-import React from "react";
+import { createContext } from 'react'
 
-import { useWeatherService } from "./useWeatherService";
+import { useWeatherService } from './useWeatherService'
 
-export const WeatherServiceContext = React.createContext<
+export const WeatherServiceContext = createContext<
   ReturnType<typeof useWeatherService>
 >(undefined as any);

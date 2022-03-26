@@ -1,17 +1,17 @@
-import { motion } from "framer-motion";
-import React, { useContext } from "react";
-import { useFluentForm } from "react-fluent-form";
+import { motion } from 'framer-motion'
+import { useContext } from 'react'
+import { useFluentForm } from 'react-fluent-form'
 
-import { forgotPasswordFormConfig } from "../../form-config/ForgotPasswordFormConfig";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
-import { scaleVariation } from "../common/variants/framerVariants";
+import { forgotPasswordFormConfig } from '../../form-config/ForgotPasswordFormConfig'
+import { AuthServiceContext } from '../../service/auth/AuthServiceContext'
+import { scaleVariation } from '../common/variants/framerVariants'
 
 interface ForgotPasswordModalProps {
   closeFunction: () => void;
 }
 
 export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
-  closeFunction
+  closeFunction,
 }) => {
   const { values, fields, handleSubmit, reset } = useFluentForm(
     forgotPasswordFormConfig

@@ -1,6 +1,7 @@
-import { ReactFacebookLoginInfo } from "react-facebook-login";
+import { City } from './CitySearchResponse'
 
-import { City } from "./CitySearchResponse";
+// TODO
+interface ReactFacebookLoginInfo {}
 
 export interface FacebookLoginResponse extends ReactFacebookLoginInfo {
   data_access_expiration_time: number;

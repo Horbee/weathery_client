@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useFluentForm } from "react-fluent-form";
-import AsyncSelect from "react-select/async";
+import { useEffect } from 'react'
+import { useFluentForm } from 'react-fluent-form'
+import AsyncSelect from 'react-select/async'
 
-import { useDebounce } from "../../custom-components/hooks/useDebounce";
-import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
-import { City } from "../../models/CitySearchResponse";
+import { useDebounce } from '../../custom-components/hooks/useDebounce'
+import { citySearchFormConfig } from '../../form-config/CitySearchFormConfig'
+import { City } from '../../models/CitySearchResponse'
 
 interface CitySearchProps {
   citySearch: (search: string) => Promise<City[]>;
@@ -15,7 +15,7 @@ interface CitySearchProps {
 
 export const CitySearch: React.FC<CitySearchProps> = ({
   citySearch,
-  cityForecast
+  cityForecast,
 }) => {
   const { values, fields, handleSubmit } = useFluentForm(citySearchFormConfig);
 

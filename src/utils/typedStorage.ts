@@ -1,10 +1,8 @@
-import moment, { Moment } from "moment";
-
 import {
     ACCESS_TOKEN, CITYSEARCH, EXPIRES_AT, TypedStorageItem, USERNAME
-} from "../constants/localstorage";
-import { City } from "../models/CitySearchResponse";
-import { Nullable } from "./Nullable";
+} from '../constants/localstorage'
+import { City } from '../models/CitySearchResponse'
+import { Nullable } from './Nullable'
 
 export class TypedStorage {
   public static get citySearch(): Nullable<City> {
@@ -32,15 +30,15 @@ export class TypedStorage {
     localStorage.setItem(ACCESS_TOKEN, accessToken);
   }
 
-  public static get tokenExpirationDate(): Nullable<Moment> {
+  public static get tokenExpirationDate(): Nullable<Date> {
     const dateString = localStorage.getItem(EXPIRES_AT);
 
-    return dateString ? moment(dateString) : null;
+    return dateString ? new Date(dateString) : null;
   }
 
-  public static set tokenExpirationDate(date: Nullable<Moment>) {
+  public static set tokenExpirationDate(date: Nullable<Date>) {
     date
-      ? localStorage.setItem(EXPIRES_AT, moment(date).format())
+      ? localStorage.setItem(EXPIRES_AT, date.toDateString())
       : localStorage.removeItem(EXPIRES_AT);
   }
 

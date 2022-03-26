@@ -1,20 +1,17 @@
-import { motion } from "framer-motion";
-import React, { useContext } from "react";
-import { useFluentForm } from "react-fluent-form";
+import { motion } from 'framer-motion'
+import { useContext } from 'react'
+import { useFluentForm } from 'react-fluent-form'
+import { FaArrowRight } from 'react-icons/fa'
 
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { signupFormConfig } from "../../form-config/SignupFormConfig";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
-import { createErrorToast } from "../../utils/toast/errorToast";
-import { yFlipVariatons } from "../common/variants/framerVariants";
+import { signupFormConfig } from '../../form-config/SignupFormConfig'
+import { AuthServiceContext } from '../../service/auth/AuthServiceContext'
+import { createErrorToast } from '../../utils/toast/errorToast'
+import { yFlipVariatons } from '../common/variants/framerVariants'
 
 export const SignupForm = () => {
   const { signup, loading } = useContext(AuthServiceContext);
-  const { values, fields, handleSubmit, errors, setValues } = useFluentForm(
-    signupFormConfig
-  );
+  const { values, fields, handleSubmit, errors, setValues } =
+    useFluentForm(signupFormConfig);
 
   const handleSubmitSuccess = () => {
     signup(values.name, values.email, values.password);
@@ -84,7 +81,7 @@ export const SignupForm = () => {
               <>
                 <span>Signup</span>
                 <span className="ml-2">
-                  <FontAwesomeIcon icon={faArrowRight} />
+                  <FaArrowRight />
                 </span>
               </>
             )}

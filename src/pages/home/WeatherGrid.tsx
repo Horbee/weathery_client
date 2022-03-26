@@ -1,20 +1,18 @@
-import "./WeatherGrid.scss";
+import './WeatherGrid.scss'
 
-import { motion } from "framer-motion";
-import moment from "moment";
-import React, { useMemo } from "react";
+import { format } from 'date-fns'
+import { motion } from 'framer-motion'
+import { useMemo } from 'react'
+import { FaCity } from 'react-icons/fa'
 
-import { faCity } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { openWeatherMapIconURL } from "../../constants/endpoints";
-import { City } from "../../models/CitySearchResponse";
-import { Forecast } from "../../models/ForecastResponse";
-import { capitalize } from "../../utils/capitalize";
-import { decimal } from "../../utils/math";
-import { xFlipVariatons, yFlipVariatons } from "../common/variants/framerVariants";
-import { FlipCard } from "./grid-components/FlipCard";
-import { SingleValueCard } from "./grid-components/SingleValueCard";
+import { openWeatherMapIconURL } from '../../constants/endpoints'
+import { City } from '../../models/CitySearchResponse'
+import { Forecast } from '../../models/ForecastResponse'
+import { capitalize } from '../../utils/capitalize'
+import { decimal } from '../../utils/math'
+import { xFlipVariatons, yFlipVariatons } from '../common/variants/framerVariants'
+import { FlipCard } from './grid-components/FlipCard'
+import { SingleValueCard } from './grid-components/SingleValueCard'
 
 interface WeatherGridProps {
   // weather: Weather;
@@ -24,22 +22,24 @@ interface WeatherGridProps {
 
 export const WeatherGrid: React.FC<WeatherGridProps> = ({
   weather,
-  lastCity
+  lastCity,
 }) => {
   const maxTempMemo = useMemo(
     () => decimal(weather.daily[0]?.temp.max) || 0, //TODO
     [weather.daily]
   );
 
-  const minTempMemo = useMemo(() => decimal(weather.daily[0]?.temp.min || 0), [
-    weather.daily
-  ]);
+  const minTempMemo = useMemo(
+    () => decimal(weather.daily[0]?.temp.min || 0),
+    [weather.daily]
+  );
 
   const tempMemo = useMemo(() => decimal(weather.current.temp), [weather]);
 
-  const feelsLikeMemo = useMemo(() => decimal(weather.current.feels_like), [
-    weather
-  ]);
+  const feelsLikeMemo = useMemo(
+    () => decimal(weather.current.feels_like),
+    [weather]
+  );
 
   return (
     <div className="grid-container grid-cols-2 xl:grid-cols-4">
@@ -89,7 +89,7 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({
       </SingleValueCard>
       <div className="bg2 hoverable">
         <h2>
-          <FontAwesomeIcon icon={faCity} />
+          <FaCity />
         </h2>
         <p>{lastCity.name}</p>
       </div>
@@ -110,7 +110,7 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({
             transition={{ rotateX: { duration: 0.5 } }}
             key="front"
           >
-            <h2>{moment(weather.current.sunrise * 1000).format("HH:mm")}</h2>
+            <h2>{format(weather.current.sunrise * 1000, "HH:mm")}</h2>
             <p>Sunrise</p>
           </motion.div>
         }
@@ -124,7 +124,7 @@ export const WeatherGrid: React.FC<WeatherGridProps> = ({
             transition={{ rotateX: { duration: 0.5 } }}
             key="back"
           >
-            <h2>{moment(weather.current.sunset * 1000).format("HH:mm")}</h2>
+            <h2>{format(weather.current.sunset * 1000, "HH:mm")}</h2>
             <p>Sunset</p>
           </motion.div>
         }

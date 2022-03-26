@@ -1,5 +1,5 @@
-export enum Routes {
+export enum AppRoutes {
   Start = "/",
   Home = "/home",
-  ResetPassword = "/resetpassword"
+  ResetPassword = "/resetpassword",
 }

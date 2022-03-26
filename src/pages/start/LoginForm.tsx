@@ -1,25 +1,22 @@
-import { motion } from "framer-motion";
-import React, { useContext } from "react";
-import { useFluentForm } from "react-fluent-form";
+import { motion } from 'framer-motion'
+import { useContext } from 'react'
+import { useFluentForm } from 'react-fluent-form'
+import { FaArrowRight } from 'react-icons/fa'
 
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { loginFormConfig } from "../../form-config/LoginFormConfig";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
-import { yFlipVariatons } from "../common/variants/framerVariants";
+import { loginFormConfig } from '../../form-config/LoginFormConfig'
+import { AuthServiceContext } from '../../service/auth/AuthServiceContext'
+import { yFlipVariatons } from '../common/variants/framerVariants'
 
 interface LoginFormProps {
   openForgotPasswordModal: () => void;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({
-  openForgotPasswordModal
+  openForgotPasswordModal,
 }) => {
   const { login, loading } = useContext(AuthServiceContext);
-  const { values, fields, handleSubmit, setValues } = useFluentForm(
-    loginFormConfig
-  );
+  const { values, fields, handleSubmit, setValues } =
+    useFluentForm(loginFormConfig);
 
   const handleSubmitSuccess = () => {
     login(values.email, values.password);
@@ -73,7 +70,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
               <>
                 <span>Login</span>
                 <span className="ml-2">
-                  <FontAwesomeIcon icon={faArrowRight} />
+                  <FaArrowRight />
                 </span>
               </>
             )}

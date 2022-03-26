@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from 'react'
+import { FaRedo, FaSignOutAlt } from 'react-icons/fa'
 
-import { faRedo, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-
-import gradientImg from "../../assets/images/gradient.jpg";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
-import { WeatherServiceContext } from "../../service/weather/WeatherServiceContext";
-import { TypedStorage } from "../../utils/typedStorage";
-import { RoundedButton } from "../common/rounded-button/RoundedButton";
-import { CitySearch } from "./CitySearch";
-import { WeatherGrid } from "./WeatherGrid";
+import gradientImg from '../../assets/images/gradient.jpg'
+import { AuthServiceContext } from '../../service/auth/AuthServiceContext'
+import { WeatherServiceContext } from '../../service/weather/WeatherServiceContext'
+import { TypedStorage } from '../../utils/typedStorage'
+import { RoundedButton } from '../common/rounded-button/RoundedButton'
+import { CitySearch } from './CitySearch'
+import { WeatherGrid } from './WeatherGrid'
 
 export const HomePage = () => {
   const { clearAuth, auth } = useContext(AuthServiceContext);
@@ -19,7 +18,7 @@ export const HomePage = () => {
     timedRefreshLastCitySearch,
     weatherForecast,
     lastCity,
-    lastSearchTime
+    lastSearchTime,
   } = useContext(WeatherServiceContext);
 
   const refreshCitySearch = () => timedRefreshLastCitySearch();
@@ -47,7 +46,7 @@ export const HomePage = () => {
             tooltipClassName="ml-4"
             disabled={!lastSearchTime}
             onClick={refreshCitySearch}
-            icon={faRedo}
+            icon={<FaRedo />}
           />
         </div>
         <div className="w-full md:w-1/2">
@@ -58,7 +57,7 @@ export const HomePage = () => {
             tooltipText={"Logout"}
             tooltipClassName="-ml-24"
             onClick={logout}
-            icon={faSignOutAlt}
+            icon={<FaSignOutAlt />}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef } from 'react'
 
 export const useDebounce = <
   RequestFunc extends (...args: any[]) => Promise<any>
@@ -10,7 +10,7 @@ export const useDebounce = <
   const handleRequest = useCallback(
     (...args) => {
       clearTimeout(timeoutRef.current!);
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         timeoutRef.current = setTimeout(() => resolve(request(...args)), delay);
       });
     },

@@ -1,4 +1,4 @@
-import { WeatherDescription } from "./WeatherResponse";
+import { WeatherDescription } from './WeatherResponse'
 
 export interface Forecast {
   lat: number;

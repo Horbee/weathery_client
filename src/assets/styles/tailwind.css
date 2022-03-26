@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Muli&family=Rokkitt:wght@700&display=swap");
 
-@import "tailwindcss/base";
-
-@import "tailwindcss/components";
+@tailwind base;
+@tailwind components;
 
 body {
   @apply bg-lila font-muli antialiased;
@@ -60,7 +59,7 @@ body {
 }
 
 .input:focus {
-  @apply outline-none shadow-outline;
+  @apply outline-none shadow-sm;
 }
 
 .btn {
@@ -72,7 +71,7 @@ body {
 }
 
 .btn:focus {
-  @apply outline-none shadow-outline;
+  @apply outline-none shadow-sm;
 }
 
 .btn-wide {
@@ -118,4 +117,4 @@ body {
   @apply visible;
 }
 
-@import "tailwindcss/utilities";
+@tailwind utilities;

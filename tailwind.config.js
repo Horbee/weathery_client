@@ -1,5 +1,5 @@
 module.exports = {
-  purge: [],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -8,16 +8,16 @@ module.exports = {
         link: "#0c6787",
         linkHover: "#007bff",
         lila: "#4c5c96",
-        deepBlue: "#161843"
+        deepBlue: "#161843",
       },
       fontFamily: {
         muli: ["Muli", "sans-serif"],
-        rokkit: ["Rokkitt", "serif"]
-      }
-    }
+        rokkit: ["Rokkitt", "serif"],
+      },
+    },
   },
   variants: {
-    cursor: ["responsive", "hover"]
+    cursor: ["responsive", "hover"],
   },
-  plugins: []
+  plugins: [],
 };

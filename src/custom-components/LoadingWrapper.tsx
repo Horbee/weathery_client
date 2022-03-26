@@ -1,12 +1,10 @@
-import React from "react";
-
 interface LoadingWrapperProps {
   loading: boolean;
 }
 
 export const LoadingWrapper: React.FC<LoadingWrapperProps> = ({
   loading,
-  children
+  children,
 }) => {
   return loading ? (
     <div className="text-center">
