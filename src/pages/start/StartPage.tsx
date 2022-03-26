@@ -1,13 +1,12 @@
-import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import { AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 
-import { ImageCarousel } from "../common/img-carousel/ImageCarousel";
-import { Modal } from "../common/modal/Modal";
-import { FacebookOauthButton } from "../common/oauth-button/FacebookOauthButton";
-import { GoogleOauthButton } from "../common/oauth-button/GoogleOauthButton";
-import { ForgotPasswordModal } from "../forgotpassword-modal/ForgotPasswordModal";
-import { LoginForm } from "./LoginForm";
-import { SignupForm } from "./SignupForm";
+import { ImageCarousel } from '../common/img-carousel/ImageCarousel'
+import { Modal } from '../common/modal/Modal'
+import { GoogleOauthButton } from '../common/oauth-button/GoogleOauthButton'
+import { ForgotPasswordModal } from '../forgotpassword-modal/ForgotPasswordModal'
+import { LoginForm } from './LoginForm'
+import { SignupForm } from './SignupForm'
 
 export const StartPage = () => {
   const [toggleForms, setToggleForms] = useState(false);
@@ -48,7 +47,7 @@ export const StartPage = () => {
               <p className="text-muted text-sm mt-2 xl:mt-8">Or log in with</p>
               {/* <!-- OAuth Buttons --> */}
               <div className="flex justify-between mt-3 xl:mt-6">
-                <FacebookOauthButton />
+                {/* <FacebookOauthButton /> */}
                 <GoogleOauthButton />
               </div>
               {/* <!-- Link to Signup --> */}

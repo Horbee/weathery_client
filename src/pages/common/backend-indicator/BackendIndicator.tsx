@@ -1,23 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react'
+import { FaCloud } from 'react-icons/fa'
 
-import { faCloud } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { WeatherServiceContext } from "../../../service/weather/WeatherServiceContext";
+import { WeatherServiceContext } from '../../../service/weather/WeatherServiceContext'
 
 export const BackendIndicator = () => {
   const [sendRequest, setSendRequest] = useState(true);
 
-  const {
-    backendState,
-    checkBackendStatus
-    // createSocketConnection,
-    //latency
-  } = useContext(WeatherServiceContext);
+  const { backendState, checkBackendStatus } = useContext(
+    WeatherServiceContext
+  );
 
   useEffect(() => {
     checkBackendStatus();
-    //createSocketConnection();
     // eslint-disable-next-line
   }, []);
 
@@ -39,7 +33,7 @@ export const BackendIndicator = () => {
   return (
     <div className="indicator-container" onClick={handleClick}>
       <p className="font-muli server-label">
-        Backend: <FontAwesomeIcon icon={faCloud} style={{ color }} />
+        Backend: <FaCloud style={{ color }} />
       </p>
     </div>
   );

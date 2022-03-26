@@ -1,20 +1,19 @@
-import moment from "moment";
-import { useState } from "react";
+import { addMinutes, isPast } from 'date-fns'
+import { useState } from 'react'
 
-import { City, CitySearchResponse } from "../../models/CitySearchResponse";
-import { Forecast, ForecastResponse } from "../../models/ForecastResponse";
-import { Nullable } from "../../utils/Nullable";
-import { TypedStorage } from "../../utils/typedStorage";
-import { axiosInstance } from "../axios/axiosIstance";
+import { City, CitySearchResponse } from '../../models/CitySearchResponse'
+import { Forecast, ForecastResponse } from '../../models/ForecastResponse'
+import { Nullable } from '../../utils/Nullable'
+import { TypedStorage } from '../../utils/typedStorage'
+import { axiosInstance } from '../axios/axiosIstance'
 
 type Status = "UP" | "DOWN" | "PENDING";
 
 export const useWeatherService = () => {
   const [status, setStatus] = useState<Nullable<boolean>>(null);
   const [loading, setLoading] = useState(false);
-  const [weatherForecast, setWeatherForecast] = useState<Nullable<Forecast>>(
-    null
-  );
+  const [weatherForecast, setWeatherForecast] =
+    useState<Nullable<Forecast>>(null);
   const [lastCity, setLastCity] = useState<Nullable<City>>(null);
   const [lastSearchTime, setLastSearchTime] = useState<Nullable<number>>(null);
 
@@ -61,7 +60,7 @@ export const useWeatherService = () => {
 
   const timedRefreshLastCitySearch = () => {
     if (TypedStorage.citySearch && lastSearchTime) {
-      if (moment(lastSearchTime).add(1, "minutes") <= moment()) {
+      if (isPast(addMinutes(new Date(lastSearchTime), 1))) {
         getCityForecast(TypedStorage.citySearch);
       }
     }
@@ -79,6 +78,6 @@ export const useWeatherService = () => {
     loading,
     backendState,
     weatherForecast,
-    lastCity
+    lastCity,
   };
 };

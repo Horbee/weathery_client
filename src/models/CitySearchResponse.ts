@@ -6,7 +6,7 @@ export interface City {
   coord: {
     lon: number;
     lat: number;
-  }
+  };
 }
 
 export interface CitySearchResponse {

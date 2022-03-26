@@ -1,15 +1,15 @@
-import jwt from "jsonwebtoken";
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
+import { isFuture } from 'date-fns'
+import jwt_decode from 'jwt-decode'
+import { useEffect, useState } from 'react'
+import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
 
-import { CITYSEARCH } from "../../constants/localstorage";
-import { City } from "../../models/CitySearchResponse";
-import { AccessTokenProps, FacebookLoginResponse } from "../../models/TokenResponse";
-import { Nullable } from "../../utils/Nullable";
-import { createSuccessToast } from "../../utils/toast/successToast";
-import { TypedStorage } from "../../utils/typedStorage";
-import { axiosInstance } from "../axios/axiosIstance";
+import { CITYSEARCH } from '../../constants/localstorage'
+import { City } from '../../models/CitySearchResponse'
+import { AccessTokenProps, FacebookLoginResponse } from '../../models/TokenResponse'
+import { Nullable } from '../../utils/Nullable'
+import { createSuccessToast } from '../../utils/toast/successToast'
+import { TypedStorage } from '../../utils/typedStorage'
+import { axiosInstance } from '../axios/axiosIstance'
 
 interface UserData {
   accessToken: string;
@@ -25,7 +25,7 @@ interface AuthResponse {
 const initialAuthState = {
   accessToken: "",
   isLoggedIn: false,
-  city: null
+  city: null,
 };
 
 export const useAuthService = () => {
@@ -45,18 +45,18 @@ export const useAuthService = () => {
         "/api/auth/login",
         {
           email,
-          password
+          password,
         }
       );
       const token = response.data.data;
-      const decoded = jwt.decode(token) as AccessTokenProps;
+      const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.username = email;
       TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+      TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
       setAuth({
         isLoggedIn: true,
         accessToken: token,
-        city: decoded.user.city ?? null
+        city: decoded.user.city ?? null,
       });
     } finally {
       setLoading(false);
@@ -70,13 +70,13 @@ export const useAuthService = () => {
       const response = await axiosInstance.post<AuthResponse>("/api/auth", {
         email,
         password,
-        name
+        name,
       });
       const token = response.data.data;
-      const decoded = jwt.decode(token) as AccessTokenProps;
+      const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.username = email;
       TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+      TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
       setAuth({ isLoggedIn: true, accessToken: token, city: null });
     } finally {
       setLoading(false);
@@ -90,12 +90,12 @@ export const useAuthService = () => {
     const tokenExpirationDate = TypedStorage.tokenExpirationDate;
 
     if (accessToken) {
-      if (tokenExpirationDate && tokenExpirationDate > moment()) {
-        const decoded = jwt.decode(accessToken) as AccessTokenProps;
+      if (tokenExpirationDate && isFuture(tokenExpirationDate)) {
+        const decoded = jwt_decode(accessToken) as AccessTokenProps;
         setAuth({
           isLoggedIn: true,
           accessToken,
-          city: decoded?.user?.city ?? null
+          city: decoded?.user?.city ?? null,
         });
         console.log("You are logged in");
       } else {
@@ -119,7 +119,7 @@ export const useAuthService = () => {
 
     try {
       const response = await axiosInstance.post("/api/auth/forgotpassword", {
-        email
+        email,
       });
       createSuccessToast(response.data.data);
     } finally {
@@ -137,7 +137,7 @@ export const useAuthService = () => {
       const response = await axiosInstance.post(
         `/api/auth/resetpassword?token=${token}`,
         {
-          password
+          password,
         }
       );
       createSuccessToast(response.data.data);
@@ -162,24 +162,26 @@ export const useAuthService = () => {
         {
           email,
           name,
-          idToken
+          idToken,
         }
       );
       const token = response.data.data;
-      const decoded = jwt.decode(token) as AccessTokenProps;
+      const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+      TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
       setAuth({
         isLoggedIn: true,
         accessToken: token,
-        city: decoded.user.city ?? null
+        city: decoded.user.city ?? null,
       });
     } finally {
       setLoading(false);
     }
   };
 
-  const facebookLogin = async (facebookResponse: FacebookLoginResponse) => {
+  const facebookLogin = async (
+    facebookResponse: any /*FacebookLoginResponse*/
+  ) => {
     setLoading(true);
     const { accessToken, email, name } = facebookResponse;
 
@@ -189,17 +191,17 @@ export const useAuthService = () => {
         {
           email,
           name,
-          accessToken
+          accessToken,
         }
       );
       const token = response.data.data;
-      const decoded = jwt.decode(token) as AccessTokenProps;
+      const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = moment(decoded.exp * 1000);
+      TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
       setAuth({
         isLoggedIn: true,
         accessToken: token,
-        city: decoded.user.city ?? null
+        city: decoded.user.city ?? null,
       });
     } finally {
       setLoading(false);
@@ -216,6 +218,6 @@ export const useAuthService = () => {
     forgotPassword,
     resetPassword,
     checkInitialAuthState,
-    loading
+    loading,
   };
 };
