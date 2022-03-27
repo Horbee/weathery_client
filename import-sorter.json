@@ -1,7 +1,7 @@
 {
   "importStringConfiguration": {
-    "hasSemicolon": false,
-    "quoteMark": "single"
+    "hasSemicolon": true,
+    "quoteMark": "double"
   },
   "sortConfiguration": {
     "customOrderingRules": {

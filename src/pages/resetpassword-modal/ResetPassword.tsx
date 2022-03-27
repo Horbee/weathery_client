@@ -1,10 +1,10 @@
-import queryString, { ParsedQuery } from 'query-string'
-import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import queryString, { ParsedQuery } from "query-string";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { AppRoutes } from '../../constants/routes'
-import { Modal } from '../common/modal/Modal'
-import { ResetPasswordModalContent } from './ResetPasswordModalContent'
+import { AppRoutes } from "../../constants/routes";
+import { Modal } from "../common/modal/Modal";
+import { ResetPasswordModalContent } from "./ResetPasswordModalContent";
 
 interface QueryProps extends ParsedQuery {
   token: string;

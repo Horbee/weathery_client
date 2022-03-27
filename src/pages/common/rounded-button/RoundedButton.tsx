@@ -1,9 +1,9 @@
-import './RoundedButton.scss'
+import "./RoundedButton.scss";
 
-import { motion } from 'framer-motion'
-import { ReactElement } from 'react'
+import { motion } from "framer-motion";
+import { ReactElement } from "react";
 
-import { scaleVariation } from '../variants/framerVariants'
+import { scaleVariation } from "../variants/framerVariants";
 
 interface RoundedButtonProps {
   tooltipText: string;

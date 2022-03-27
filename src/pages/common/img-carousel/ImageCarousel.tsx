@@ -1,15 +1,15 @@
-import './ImageCarousel.scss'
+import "./ImageCarousel.scss";
 
-import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-import cloud from '../../../assets/images/cloud.png'
-import ice from '../../../assets/images/ice.png'
-import rain from '../../../assets/images/rain.png'
-import sun from '../../../assets/images/sun.png'
-import wind from '../../../assets/images/wind.png'
-import { Nullable } from '../../../utils/Nullable'
-import { carouselVariants } from '../variants/framerVariants'
+import cloud from "../../../assets/images/cloud.png";
+import ice from "../../../assets/images/ice.png";
+import rain from "../../../assets/images/rain.png";
+import sun from "../../../assets/images/sun.png";
+import wind from "../../../assets/images/wind.png";
+import { Nullable } from "../../../utils/Nullable";
+import { carouselVariants } from "../variants/framerVariants";
 
 const images = [sun, cloud, rain, wind, ice];
 

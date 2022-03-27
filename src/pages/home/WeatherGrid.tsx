@@ -1,18 +1,21 @@
-import './WeatherGrid.scss'
+import "./WeatherGrid.scss";
 
-import { format } from 'date-fns'
-import { motion } from 'framer-motion'
-import { useMemo } from 'react'
-import { FaCity } from 'react-icons/fa'
+import { format } from "date-fns";
+import { motion } from "framer-motion";
+import { useMemo } from "react";
+import { FaCity } from "react-icons/fa";
 
-import { openWeatherMapIconURL } from '../../constants/endpoints'
-import { City } from '../../models/CitySearchResponse'
-import { Forecast } from '../../models/ForecastResponse'
-import { capitalize } from '../../utils/capitalize'
-import { decimal } from '../../utils/math'
-import { xFlipVariatons, yFlipVariatons } from '../common/variants/framerVariants'
-import { FlipCard } from './grid-components/FlipCard'
-import { SingleValueCard } from './grid-components/SingleValueCard'
+import { openWeatherMapIconURL } from "../../constants/endpoints";
+import { City } from "../../models/CitySearchResponse";
+import { Forecast } from "../../models/ForecastResponse";
+import { capitalize } from "../../utils/capitalize";
+import { decimal } from "../../utils/math";
+import {
+  xFlipVariatons,
+  yFlipVariatons,
+} from "../common/variants/framerVariants";
+import { FlipCard } from "./grid-components/FlipCard";
+import { SingleValueCard } from "./grid-components/SingleValueCard";
 
 interface WeatherGridProps {
   // weather: Weather;

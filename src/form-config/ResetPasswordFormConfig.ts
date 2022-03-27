@@ -7,11 +7,11 @@ interface ResetPasswordForm {
 
 export const resetPasswordFormConfig = createForm<ResetPasswordForm>()({
   password: field.password(),
-  passwordConfirm: field.password()
+  passwordConfirm: field.password(),
 }).withValidation({
   password: (value: string, values: ResetPasswordForm) => {
     if (value !== values.passwordConfirm) {
       return "Password should match Password Confirm";
     }
-  }
+  },
 });

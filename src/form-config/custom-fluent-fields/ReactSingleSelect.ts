@@ -1,7 +1,7 @@
-import { ComponentPropsMapper, Field } from 'react-fluent-form'
-import { ActionMeta } from 'react-select'
+import { ComponentPropsMapper, Field } from "react-fluent-form";
+import { ActionMeta } from "react-select";
 
-import { Nullable } from '../../utils/Nullable'
+import { Nullable } from "../../utils/Nullable";
 
 export interface ReactSingleSelectProps<T> {
   field: ReactSingleSelectPropsInternal<T>;

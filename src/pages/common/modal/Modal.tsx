@@ -1,9 +1,9 @@
-import './Modal.scss'
+import "./Modal.scss";
 
-import { AnimatePresence, motion } from 'framer-motion'
-import { FaTimes } from 'react-icons/fa'
+import { AnimatePresence, motion } from "framer-motion";
+import { FaTimes } from "react-icons/fa";
 
-import { modalVariants } from '../variants/framerVariants'
+import { modalVariants } from "../variants/framerVariants";
 
 interface ModalProps {
   isOpen: boolean;

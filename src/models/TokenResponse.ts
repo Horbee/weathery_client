@@ -1,4 +1,4 @@
-import { City } from './CitySearchResponse'
+import { City } from "./CitySearchResponse";
 
 // TODO
 interface ReactFacebookLoginInfo {}

@@ -1,8 +1,12 @@
 import {
-    ACCESS_TOKEN, CITYSEARCH, EXPIRES_AT, TypedStorageItem, USERNAME
-} from '../constants/localstorage'
-import { City } from '../models/CitySearchResponse'
-import { Nullable } from './Nullable'
+  ACCESS_TOKEN,
+  CITYSEARCH,
+  EXPIRES_AT,
+  TypedStorageItem,
+  USERNAME,
+} from "../constants/localstorage";
+import { City } from "../models/CitySearchResponse";
+import { Nullable } from "./Nullable";
 
 export class TypedStorage {
   public static get citySearch(): Nullable<City> {

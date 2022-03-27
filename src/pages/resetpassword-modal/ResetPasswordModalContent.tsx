@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion'
-import { useContext } from 'react'
-import { useFluentForm } from 'react-fluent-form'
+import { motion } from "framer-motion";
+import { useContext } from "react";
+import { useFluentForm } from "react-fluent-form";
 
-import { resetPasswordFormConfig } from '../../form-config/ResetPasswordFormConfig'
-import { AuthServiceContext } from '../../service/auth/AuthServiceContext'
-import { createErrorToast } from '../../utils/toast/errorToast'
-import { scaleVariation } from '../common/variants/framerVariants'
+import { resetPasswordFormConfig } from "../../form-config/ResetPasswordFormConfig";
+import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
+import { createErrorToast } from "../../utils/toast/errorToast";
+import { scaleVariation } from "../common/variants/framerVariants";
 
 interface ResetPasswordModalContentProps {
   closeFunction: () => void;

@@ -1,9 +1,9 @@
-import { useContext } from 'react'
-import GoogleLogin from 'react-google-login'
-import { FaGoogle } from 'react-icons/fa'
+import { useContext } from "react";
+import GoogleLogin from "react-google-login";
+import { FaGoogle } from "react-icons/fa";
 
-import { AuthServiceContext } from '../../../service/auth/AuthServiceContext'
-import { createErrorToast } from '../../../utils/toast/errorToast'
+import { AuthServiceContext } from "../../../service/auth/AuthServiceContext";
+import { createErrorToast } from "../../../utils/toast/errorToast";
 
 export const GoogleOauthButton: React.FC = () => {
   const { googleLogin } = useContext(AuthServiceContext);

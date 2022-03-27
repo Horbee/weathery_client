@@ -9,6 +9,6 @@ export const createSuccessToast = (msg: string) => {
     closeOnClick: true,
     pauseOnHover: true,
     draggable: false,
-    progress: undefined
+    progress: undefined,
   });
 };

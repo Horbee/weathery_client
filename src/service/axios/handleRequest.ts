@@ -1,6 +1,6 @@
-import { AxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig } from "axios";
 
-import { TypedStorage } from '../../utils/typedStorage'
+import { TypedStorage } from "../../utils/typedStorage";
 
 // methods will be called before each request
 export const handleRequest = (config: AxiosRequestConfig) => {

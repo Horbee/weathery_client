@@ -1,8 +1,8 @@
-import axios from 'axios'
+import axios from "axios";
 
-import { apiBaseUrl } from '../../constants/endpoints'
-import { handleErrorResponse } from './handleErrorResponse'
-import { handleRequest } from './handleRequest'
+import { apiBaseUrl } from "../../constants/endpoints";
+import { handleErrorResponse } from "./handleErrorResponse";
+import { handleRequest } from "./handleRequest";
 
 export const instance = axios.create({
   baseURL: apiBaseUrl,

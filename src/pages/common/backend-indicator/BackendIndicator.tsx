@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react'
-import { FaCloud } from 'react-icons/fa'
+import { useContext, useEffect, useState } from "react";
+import { FaCloud } from "react-icons/fa";
 
-import { WeatherServiceContext } from '../../../service/weather/WeatherServiceContext'
+import { WeatherServiceContext } from "../../../service/weather/WeatherServiceContext";
 
 export const BackendIndicator = () => {
   const [sendRequest, setSendRequest] = useState(true);

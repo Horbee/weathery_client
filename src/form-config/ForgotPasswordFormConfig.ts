@@ -5,5 +5,5 @@ interface ForgotPasswordForm {
 }
 
 export const forgotPasswordFormConfig = createForm<ForgotPasswordForm>()({
-  email: field.email()
+  email: field.email(),
 });

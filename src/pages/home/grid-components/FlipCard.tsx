@@ -1,7 +1,7 @@
-import { AnimatePresence } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
-import { Nullable } from '../../../utils/Nullable'
+import { Nullable } from "../../../utils/Nullable";
 
 interface FlipCardProps {
   frontSide: React.ReactNode;

@@ -1,15 +1,21 @@
-import { isFuture } from 'date-fns'
-import jwt_decode from 'jwt-decode'
-import { useEffect, useState } from 'react'
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
+import { isFuture } from "date-fns";
+import jwt_decode from "jwt-decode";
+import { useEffect, useState } from "react";
+import {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
 
-import { CITYSEARCH } from '../../constants/localstorage'
-import { City } from '../../models/CitySearchResponse'
-import { AccessTokenProps, FacebookLoginResponse } from '../../models/TokenResponse'
-import { Nullable } from '../../utils/Nullable'
-import { createSuccessToast } from '../../utils/toast/successToast'
-import { TypedStorage } from '../../utils/typedStorage'
-import { axiosInstance } from '../axios/axiosIstance'
+import { CITYSEARCH } from "../../constants/localstorage";
+import { City } from "../../models/CitySearchResponse";
+import {
+  AccessTokenProps,
+  FacebookLoginResponse,
+} from "../../models/TokenResponse";
+import { Nullable } from "../../utils/Nullable";
+import { createSuccessToast } from "../../utils/toast/successToast";
+import { TypedStorage } from "../../utils/typedStorage";
+import { axiosInstance } from "../axios/axiosIstance";
 
 interface UserData {
   accessToken: string;

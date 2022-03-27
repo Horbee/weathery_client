@@ -1,11 +1,11 @@
-import { addMinutes, isPast } from 'date-fns'
-import { useState } from 'react'
+import { addMinutes, isPast } from "date-fns";
+import { useState } from "react";
 
-import { City, CitySearchResponse } from '../../models/CitySearchResponse'
-import { Forecast, ForecastResponse } from '../../models/ForecastResponse'
-import { Nullable } from '../../utils/Nullable'
-import { TypedStorage } from '../../utils/typedStorage'
-import { axiosInstance } from '../axios/axiosIstance'
+import { City, CitySearchResponse } from "../../models/CitySearchResponse";
+import { Forecast, ForecastResponse } from "../../models/ForecastResponse";
+import { Nullable } from "../../utils/Nullable";
+import { TypedStorage } from "../../utils/typedStorage";
+import { axiosInstance } from "../axios/axiosIstance";
 
 type Status = "UP" | "DOWN" | "PENDING";
 

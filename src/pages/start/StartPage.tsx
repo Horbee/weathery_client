@@ -1,12 +1,12 @@
-import { AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
-import { ImageCarousel } from '../common/img-carousel/ImageCarousel'
-import { Modal } from '../common/modal/Modal'
-import { GoogleOauthButton } from '../common/oauth-button/GoogleOauthButton'
-import { ForgotPasswordModal } from '../forgotpassword-modal/ForgotPasswordModal'
-import { LoginForm } from './LoginForm'
-import { SignupForm } from './SignupForm'
+import { ImageCarousel } from "../common/img-carousel/ImageCarousel";
+import { Modal } from "../common/modal/Modal";
+import { GoogleOauthButton } from "../common/oauth-button/GoogleOauthButton";
+import { ForgotPasswordModal } from "../forgotpassword-modal/ForgotPasswordModal";
+import { LoginForm } from "./LoginForm";
+import { SignupForm } from "./SignupForm";
 
 export const StartPage = () => {
   const [toggleForms, setToggleForms] = useState(false);

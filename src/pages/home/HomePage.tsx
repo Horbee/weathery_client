@@ -1,13 +1,13 @@
-import { useContext, useEffect } from 'react'
-import { FaRedo, FaSignOutAlt } from 'react-icons/fa'
+import { useContext, useEffect } from "react";
+import { FaRedo, FaSignOutAlt } from "react-icons/fa";
 
-import gradientImg from '../../assets/images/gradient.jpg'
-import { AuthServiceContext } from '../../service/auth/AuthServiceContext'
-import { WeatherServiceContext } from '../../service/weather/WeatherServiceContext'
-import { TypedStorage } from '../../utils/typedStorage'
-import { RoundedButton } from '../common/rounded-button/RoundedButton'
-import { CitySearch } from './CitySearch'
-import { WeatherGrid } from './WeatherGrid'
+import gradientImg from "../../assets/images/gradient.jpg";
+import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
+import { WeatherServiceContext } from "../../service/weather/WeatherServiceContext";
+import { TypedStorage } from "../../utils/typedStorage";
+import { RoundedButton } from "../common/rounded-button/RoundedButton";
+import { CitySearch } from "./CitySearch";
+import { WeatherGrid } from "./WeatherGrid";
 
 export const HomePage = () => {
   const { clearAuth, auth } = useContext(AuthServiceContext);

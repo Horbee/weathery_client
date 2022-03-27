@@ -9,7 +9,7 @@ interface LoginForm {
 
 export const loginFormConfig = createForm<LoginForm>()({
   email: field.email(),
-  password: field.password()
+  password: field.password(),
 }).withInitialValues({
-  email: TypedStorage.username
+  email: TypedStorage.username,
 });

@@ -1,8 +1,8 @@
-import { createForm, field } from 'react-fluent-form'
-import * as yup from 'yup'
+import { createForm, field } from "react-fluent-form";
+import * as yup from "yup";
 
-import { City } from '../models/CitySearchResponse'
-import { Nullable } from '../utils/Nullable'
+import { City } from "../models/CitySearchResponse";
+import { Nullable } from "../utils/Nullable";
 
 interface CitySearchForm {
   city: Nullable<City>;

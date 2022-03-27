@@ -1,12 +1,11 @@
-import { motion } from 'framer-motion'
-import { useContext } from 'react'
-import { useFluentForm } from 'react-fluent-form'
-import { FaArrowRight } from 'react-icons/fa'
+import { motion } from "framer-motion";
+import { useContext } from "react";
+import { useFluentForm } from "react-fluent-form";
+import { FaArrowRight } from "react-icons/fa";
 
-
-import { loginFormConfig } from '../../form-config/LoginFormConfig'
-import { AuthServiceContext } from '../../service/auth/AuthServiceContext'
-import { yFlipVariatons } from '../common/variants/framerVariants'
+import { loginFormConfig } from "../../form-config/LoginFormConfig";
+import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
+import { yFlipVariatons } from "../common/variants/framerVariants";
 
 interface LoginFormProps {
   openForgotPasswordModal: () => void;

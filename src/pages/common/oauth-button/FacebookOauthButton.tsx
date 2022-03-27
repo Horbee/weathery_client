@@ -1,9 +1,9 @@
-import { useContext } from 'react'
+import { useContext } from "react";
 // import FacebookLogin from 'react-facebook-login'
-import { FaFacebook } from 'react-icons/fa'
+import { FaFacebook } from "react-icons/fa";
 
-import { AuthServiceContext } from '../../../service/auth/AuthServiceContext'
-import { createErrorToast } from '../../../utils/toast/errorToast'
+import { AuthServiceContext } from "../../../service/auth/AuthServiceContext";
+import { createErrorToast } from "../../../utils/toast/errorToast";
 
 export const FacebookOauthButton: React.FC = () => {
   const { facebookLogin } = useContext(AuthServiceContext);
