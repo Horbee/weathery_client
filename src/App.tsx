@@ -2,8 +2,11 @@ import './assets/styles/tailwind.css'
 import 'react-toastify/dist/ReactToastify.css'
 import './form-config/custom-fluent-fields/config'
 
+
+import { IconContext } from 'react-icons'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+
 
 import { AppRoutes } from './constants/routes'
 import { LoadingWrapper } from './custom-components/LoadingWrapper'
@@ -23,38 +26,40 @@ export const App = () => {
   return (
     <>
       <LoadingWrapper loading={authService.checkInitialAuthState}>
-        <AuthServiceContext.Provider value={authService}>
-          <WeatherServiceContext.Provider value={weatherService}>
-            <BackendIndicator />
-            <Routes>
-              <Route
-                path={AppRoutes.Home}
-                element={
-                  authService.auth.isLoggedIn ? (
-                    <HomePage />
-                  ) : (
-                    <Navigate to={AppRoutes.Start} />
-                  )
-                }
-              />
-              <Route
-                path={AppRoutes.Start}
-                element={
-                  !authService.auth.isLoggedIn ? (
-                    <StartPage />
-                  ) : (
-                    <Navigate to={AppRoutes.Home} />
-                  )
-                }
-              />
+        <IconContext.Provider value={{ className: "inline-block" }}>
+          <AuthServiceContext.Provider value={authService}>
+            <WeatherServiceContext.Provider value={weatherService}>
+              <BackendIndicator />
+              <Routes>
+                <Route
+                  path={AppRoutes.Home}
+                  element={
+                    authService.auth.isLoggedIn ? (
+                      <HomePage />
+                    ) : (
+                      <Navigate to={AppRoutes.Start} />
+                    )
+                  }
+                />
+                <Route
+                  path={AppRoutes.Start}
+                  element={
+                    !authService.auth.isLoggedIn ? (
+                      <StartPage />
+                    ) : (
+                      <Navigate to={AppRoutes.Home} />
+                    )
+                  }
+                />
 
-              <Route
-                path={AppRoutes.ResetPassword}
-                element={<ResetPassword />}
-              />
-            </Routes>
-          </WeatherServiceContext.Provider>
-        </AuthServiceContext.Provider>
+                <Route
+                  path={AppRoutes.ResetPassword}
+                  element={<ResetPassword />}
+                />
+              </Routes>
+            </WeatherServiceContext.Provider>
+          </AuthServiceContext.Provider>
+        </IconContext.Provider>
       </LoadingWrapper>
       <ToastContainer />
     </>
