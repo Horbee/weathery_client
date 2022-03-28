@@ -1,14 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCloud } from "react-icons/fa";
 
-import { WeatherServiceContext } from "../../../service/weather/WeatherServiceContext";
+
+import { useWeatherService } from "../../../service/weather/useWeatherService";
 
 export const BackendIndicator = () => {
   const [sendRequest, setSendRequest] = useState(true);
-
-  const { backendState, checkBackendStatus } = useContext(
-    WeatherServiceContext
-  );
+  const { backendState, checkBackendStatus } = useWeatherService();
 
   useEffect(() => {
     checkBackendStatus();

@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
 import { FaRedo, FaSignOutAlt } from "react-icons/fa";
 
+
 import gradientImg from "../../assets/images/gradient.jpg";
 import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
-import { WeatherServiceContext } from "../../service/weather/WeatherServiceContext";
+import { useWeatherService } from "../../service/weather/useWeatherService";
 import { TypedStorage } from "../../utils/typedStorage";
 import { RoundedButton } from "../common/rounded-button/RoundedButton";
 import { CitySearch } from "./CitySearch";
@@ -19,7 +20,7 @@ export const HomePage = () => {
     weatherForecast,
     lastCity,
     lastSearchTime,
-  } = useContext(WeatherServiceContext);
+  } = useWeatherService();
 
   const refreshCitySearch = () => timedRefreshLastCitySearch();
 
