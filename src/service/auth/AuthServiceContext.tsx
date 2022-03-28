@@ -4,14 +4,17 @@ import { createContext, FC, useEffect, useState } from "react";
 import { GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
 
 
+import {
+    forgotpasswordRequest, loginWithEmailAndPassword, loginWithFacebook, loginWithGoogle,
+    passwordResetRequest, signupWithEmailAndPassword
+} from "../../api/auth-controller";
+import { City } from "../../api/models/CitySearchResponse";
+import { AccessTokenProps } from "../../api/models/TokenResponse";
 import { CITYSEARCH } from "../../constants/localstorage";
 import { LoadingWrapper } from "../../custom-components/LoadingWrapper";
-import { City } from "../../models/CitySearchResponse";
-import { AccessTokenProps } from "../../models/TokenResponse";
 import { Nullable } from "../../utils/Nullable";
 import { createSuccessToast } from "../../utils/toast/successToast";
 import { TypedStorage } from "../../utils/typedStorage";
-import { axiosInstance } from "../axios/axiosIstance";
 
 type AuthServiceContextType = {
   auth: UserData;
@@ -34,11 +37,6 @@ interface UserData {
   city: Nullable<City>;
 }
 
-interface AuthResponse {
-  success: boolean;
-  data: string;
-}
-
 const initialAuthState = {
   accessToken: "",
   isLoggedIn: false,
@@ -55,21 +53,14 @@ export const AuthServiceProvider: FC = ({ children }) => {
   const [auth, setAuth] = useState<UserData>(initialAuthState);
 
   useEffect(() => {
-    checkLocalStorage();
+    checkAuthState();
   }, []);
 
   const login = async (email: string, password: string) => {
     setLoading(true);
 
     try {
-      const response = await axiosInstance.post<AuthResponse>(
-        "/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
-      const token = response.data.data;
+      const { data: token } = await loginWithEmailAndPassword(email, password);
       const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.username = email;
       TypedStorage.accessToken = token;
@@ -88,12 +79,11 @@ export const AuthServiceProvider: FC = ({ children }) => {
     setLoading(true);
 
     try {
-      const response = await axiosInstance.post<AuthResponse>("/api/auth", {
-        email,
-        password,
+      const { data: token } = await signupWithEmailAndPassword(
         name,
-      });
-      const token = response.data.data;
+        email,
+        password
+      );
       const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.username = email;
       TypedStorage.accessToken = token;
@@ -104,7 +94,7 @@ export const AuthServiceProvider: FC = ({ children }) => {
     }
   };
 
-  const checkLocalStorage = () => {
+  const checkAuthState = () => {
     setCheckInitialAuthState(true);
 
     const accessToken = TypedStorage.accessToken;
@@ -139,10 +129,8 @@ export const AuthServiceProvider: FC = ({ children }) => {
     setLoading(true);
 
     try {
-      const response = await axiosInstance.post("/api/auth/forgotpassword", {
-        email,
-      });
-      createSuccessToast(response.data.data);
+      const { data: message } = await forgotpasswordRequest(email);
+      createSuccessToast(message);
     } finally {
       setLoading(false);
     }
@@ -155,13 +143,8 @@ export const AuthServiceProvider: FC = ({ children }) => {
     setLoading(true);
 
     try {
-      const response = await axiosInstance.post(
-        `/api/auth/resetpassword?token=${token}`,
-        {
-          password,
-        }
-      );
-      createSuccessToast(response.data.data);
+      const { data: message } = await passwordResetRequest(password, token);
+      createSuccessToast(message);
       return true;
     } catch (err) {
       return false;
@@ -178,15 +161,7 @@ export const AuthServiceProvider: FC = ({ children }) => {
     const name = (googleResponse as GoogleLoginResponse).profileObj.name;
 
     try {
-      const response = await axiosInstance.post<AuthResponse>(
-        "/api/oauth/google",
-        {
-          email,
-          name,
-          idToken,
-        }
-      );
-      const token = response.data.data;
+      const { data: token } = await loginWithGoogle(name, email, idToken);
       const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.accessToken = token;
       TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
@@ -207,15 +182,7 @@ export const AuthServiceProvider: FC = ({ children }) => {
     const { accessToken, email, name } = facebookResponse;
 
     try {
-      const response = await axiosInstance.post<AuthResponse>(
-        "/api/oauth/facebook",
-        {
-          email,
-          name,
-          accessToken,
-        }
-      );
-      const token = response.data.data;
+      const { data: token } = await loginWithFacebook(name, email, accessToken);
       const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.accessToken = token;
       TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);

@@ -1,11 +1,7 @@
+import { City } from "../api/models/CitySearchResponse";
 import {
-  ACCESS_TOKEN,
-  CITYSEARCH,
-  EXPIRES_AT,
-  TypedStorageItem,
-  USERNAME,
+    ACCESS_TOKEN, CITYSEARCH, EXPIRES_AT, TypedStorageItem, USERNAME
 } from "../constants/localstorage";
-import { City } from "../models/CitySearchResponse";
 import { Nullable } from "./Nullable";
 
 export class TypedStorage {

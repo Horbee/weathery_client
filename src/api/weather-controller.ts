@@ -1,6 +1,6 @@
-import { City, CitySearchResponse } from "../models/CitySearchResponse";
-import { ForecastResponse } from "../models/ForecastResponse";
 import { axiosInstance } from "../service/axios/axiosIstance";
+import { City, CitySearchResponse } from "./models/CitySearchResponse";
+import { ForecastResponse } from "./models/ForecastResponse";
 
 export const getForecastByCity = async (
   city: City
