@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
-import { useContext } from "react";
 import { useFluentForm } from "react-fluent-form";
 import { FaArrowRight } from "react-icons/fa";
 
+
 import { signupFormConfig } from "../../form-config/SignupFormConfig";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
+import { useAuthService } from "../../service/auth/useAuthService";
 import { createErrorToast } from "../../utils/toast/errorToast";
 import { yFlipVariatons } from "../common/variants/framerVariants";
 
 export const SignupForm = () => {
-  const { signup, loading } = useContext(AuthServiceContext);
+  const { signup, loading } = useAuthService();
   const { values, fields, handleSubmit, errors, setValues } =
     useFluentForm(signupFormConfig);
 

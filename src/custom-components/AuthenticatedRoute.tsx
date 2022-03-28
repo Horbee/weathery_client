@@ -1,8 +1,8 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { Navigate } from "react-router-dom";
 
 
-import { AuthServiceContext } from "../service/auth/AuthServiceContext";
+import { useAuthService } from "../service/auth/useAuthService";
 
 interface AuthenticatedRouteProps {
   fallbackUrl: string;
@@ -16,7 +16,7 @@ export const AuthenticatedRoute: FC<AuthenticatedRouteProps> = ({
 }) => {
   const {
     auth: { isLoggedIn },
-  } = useContext(AuthServiceContext);
+  } = useAuthService();
 
   const condition = negate ? !isLoggedIn : isLoggedIn;
 

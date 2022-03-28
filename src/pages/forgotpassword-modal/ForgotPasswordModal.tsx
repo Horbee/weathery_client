@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { useContext } from "react";
 import { useFluentForm } from "react-fluent-form";
 
+
 import { forgotPasswordFormConfig } from "../../form-config/ForgotPasswordFormConfig";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
+import { useAuthService } from "../../service/auth/useAuthService";
 import { scaleVariation } from "../common/variants/framerVariants";
 
 interface ForgotPasswordModalProps {
@@ -17,7 +17,7 @@ export const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
     forgotPasswordFormConfig
   );
 
-  const { forgotPassword, loading } = useContext(AuthServiceContext);
+  const { forgotPassword, loading } = useAuthService();
 
   const handleSubmitSuccess = async () => {
     await forgotPassword(values.email);

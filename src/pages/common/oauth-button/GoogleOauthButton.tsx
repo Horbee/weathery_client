@@ -1,12 +1,12 @@
-import { useContext } from "react";
 import GoogleLogin from "react-google-login";
 import { FaGoogle } from "react-icons/fa";
 
-import { AuthServiceContext } from "../../../service/auth/AuthServiceContext";
+
+import { useAuthService } from "../../../service/auth/useAuthService";
 import { createErrorToast } from "../../../utils/toast/errorToast";
 
 export const GoogleOauthButton: React.FC = () => {
-  const { googleLogin } = useContext(AuthServiceContext);
+  const { googleLogin } = useAuthService();
 
   const clientId = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID || "";
 

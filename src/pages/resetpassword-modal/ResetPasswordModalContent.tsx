@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { useContext } from "react";
 import { useFluentForm } from "react-fluent-form";
 
+
 import { resetPasswordFormConfig } from "../../form-config/ResetPasswordFormConfig";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
+import { useAuthService } from "../../service/auth/useAuthService";
 import { createErrorToast } from "../../utils/toast/errorToast";
 import { scaleVariation } from "../common/variants/framerVariants";
 
@@ -23,7 +23,7 @@ export const ResetPasswordModalContent: React.FC<
     errors,
   } = useFluentForm(resetPasswordFormConfig);
 
-  const { resetPassword, loading } = useContext(AuthServiceContext);
+  const { resetPassword, loading } = useAuthService();
 
   const handleSubmitSuccess = async () => {
     if (await resetPassword(values.password, token)) {
