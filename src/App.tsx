@@ -15,6 +15,7 @@ import { HomePage } from "./pages/home/HomePage";
 import { ResetPassword } from "./pages/resetpassword-modal/ResetPassword";
 import { StartPage } from "./pages/start/StartPage";
 import { AuthServiceProvider } from "./service/auth/AuthServiceContext";
+import { StatusServiceProvider } from "./service/status/StatusServiceContext";
 import { WeatherServiceProvider } from "./service/weather/WeatherServiceContext";
 
 export const App = () => {
@@ -23,30 +24,32 @@ export const App = () => {
       <IconContext.Provider value={{ className: "inline-block" }}>
         <AuthServiceProvider>
           <WeatherServiceProvider>
-            <BackendIndicator />
-            <Routes>
-              <Route
-                path={AppRoutes.Home}
-                element={
-                  <AuthenticatedRoute fallbackUrl={AppRoutes.Start}>
-                    <HomePage />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path={AppRoutes.Start}
-                element={
-                  <AuthenticatedRoute fallbackUrl={AppRoutes.Home} negate>
-                    <StartPage />
-                  </AuthenticatedRoute>
-                }
-              />
+            <StatusServiceProvider>
+              <BackendIndicator />
+              <Routes>
+                <Route
+                  path={AppRoutes.Home}
+                  element={
+                    <AuthenticatedRoute fallbackUrl={AppRoutes.Start}>
+                      <HomePage />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path={AppRoutes.Start}
+                  element={
+                    <AuthenticatedRoute fallbackUrl={AppRoutes.Home} negate>
+                      <StartPage />
+                    </AuthenticatedRoute>
+                  }
+                />
 
-              <Route
-                path={AppRoutes.ResetPassword}
-                element={<ResetPassword />}
-              />
-            </Routes>
+                <Route
+                  path={AppRoutes.ResetPassword}
+                  element={<ResetPassword />}
+                />
+              </Routes>
+            </StatusServiceProvider>
           </WeatherServiceProvider>
         </AuthServiceProvider>
       </IconContext.Provider>

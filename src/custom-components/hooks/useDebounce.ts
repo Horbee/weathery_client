@@ -4,7 +4,7 @@ export const useDebounce = <
   RequestFunc extends (...args: any[]) => Promise<any>
 >(
   request: RequestFunc,
-  delay = 1000
+  delay = 500
 ): RequestFunc => {
   const timeoutRef = useRef<NodeJS.Timeout>();
   const handleRequest = useCallback(

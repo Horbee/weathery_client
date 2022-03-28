@@ -12,17 +12,8 @@ import { WeatherGrid } from "./WeatherGrid";
 
 export const HomePage = () => {
   const { clearAuth, auth } = useAuthService();
-  const {
-    getCities,
-    getCityForecast,
-    clearWeatherInfo,
-    timedRefreshLastCitySearch,
-    weatherForecast,
-    lastCity,
-    lastSearchTime,
-  } = useWeatherService();
-
-  const refreshCitySearch = () => timedRefreshLastCitySearch();
+  const { getCityForecast, clearWeatherInfo, weatherForecast, lastCity } =
+    useWeatherService();
 
   const logout = () => {
     clearWeatherInfo();
@@ -30,12 +21,12 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
-    // TODO: use explicit endpoint to fetch this info
-    const lastCity = auth.city || TypedStorage.citySearch;
-    if (lastCity) {
-      getCityForecast(lastCity);
-    }
-    // eslint-disable-next-line
+    const fetchInitialCityForecast = () => {
+      const lastCity = auth.city || TypedStorage.citySearch;
+      if (lastCity) getCityForecast(lastCity);
+    };
+
+    fetchInitialCityForecast();
   }, []);
 
   return (
@@ -45,13 +36,12 @@ export const HomePage = () => {
           <RoundedButton
             tooltipText={"Refresh"}
             tooltipClassName="ml-4"
-            disabled={!lastSearchTime}
-            onClick={refreshCitySearch}
+            onClick={() => getCityForecast(lastCity)}
             icon={<FaRedo />}
           />
         </div>
         <div className="w-full md:w-1/2">
-          <CitySearch citySearch={getCities} cityForecast={getCityForecast} />
+          <CitySearch cityForecast={getCityForecast} />
         </div>
         <div>
           <RoundedButton

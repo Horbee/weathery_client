@@ -2,21 +2,19 @@ import { useEffect } from "react";
 import { useFluentForm } from "react-fluent-form";
 import AsyncSelect from "react-select/async";
 
+
+import { searchCityByName } from "../../api/weather-controller";
 import { useDebounce } from "../../custom-components/hooks/useDebounce";
 import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
 import { City } from "../../models/CitySearchResponse";
 
 interface CitySearchProps {
-  citySearch: (search: string) => Promise<City[]>;
   cityForecast: (city: City) => Promise<void>;
 }
 
 // TODO: save last search's options as default values
 
-export const CitySearch: React.FC<CitySearchProps> = ({
-  citySearch,
-  cityForecast,
-}) => {
+export const CitySearch: React.FC<CitySearchProps> = ({ cityForecast }) => {
   const { values, fields, handleSubmit } = useFluentForm(citySearchFormConfig);
 
   const handleSubmitSuccess = async () => {
@@ -39,7 +37,7 @@ export const CitySearch: React.FC<CitySearchProps> = ({
         <AsyncSelect<City>
           placeholder="Search for City..."
           cacheOptions
-          loadOptions={useDebounce(citySearch)}
+          loadOptions={useDebounce(searchCityByName)}
           getOptionLabel={(city) => city.name}
           getOptionValue={(city) => city.name}
           onChange={fields.city.onChange as any}
