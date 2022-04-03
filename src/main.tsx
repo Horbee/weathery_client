@@ -4,12 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 
 
 import { App } from "./App";
+import ReloadPrompt from "./custom-components/reload-prompt/ReloadPrompt";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <ReloadPrompt />
       <App />
     </BrowserRouter>
   </React.StrictMode>
