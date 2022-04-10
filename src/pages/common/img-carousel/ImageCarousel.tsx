@@ -1,7 +1,7 @@
 import "./ImageCarousel.scss";
 
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import cloud from "../../../assets/images/cloud.png";
 import ice from "../../../assets/images/ice.png";
@@ -42,7 +42,7 @@ export const ImageCarousel = () => {
           exit="exit"
           transition={{
             x: { type: "spring", stiffness: 300, damping: 20, duration: 0.2 },
-            opacity: { duration: 0.2 }
+            opacity: { duration: 0.2 },
           }}
         />
       </AnimatePresence>

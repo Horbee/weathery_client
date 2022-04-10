@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
 import FacebookLogin from "react-facebook-login";
+import { FaFacebook } from "react-icons/fa";
 
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { AuthServiceContext } from "../../../service/auth/AuthServiceContext";
+import { useAuthService } from "../../../service/auth/useAuthService";
 import { createErrorToast } from "../../../utils/toast/errorToast";
 
 export const FacebookOauthButton: React.FC = () => {
-  const { facebookLogin } = useContext(AuthServiceContext);
+  const { facebookLogin } = useAuthService();
 
-  const appId = process.env.REACT_APP_FACEBOOK_APP_ID || "";
+  const appId = import.meta.env.VITE_APP_FACEBOOK_APP_ID || "";
 
   return (
     <FacebookLogin
@@ -25,7 +23,7 @@ export const FacebookOauthButton: React.FC = () => {
       cssClass="btn btn-wide w-full"
       icon={
         <span className="mr-2">
-          <FontAwesomeIcon icon={faFacebook} />
+          <FaFacebook />
         </span>
       }
       containerStyle={{ width: "47%" }}

@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
 import GoogleLogin from "react-google-login";
+import { FaGoogle } from "react-icons/fa";
 
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { AuthServiceContext } from "../../../service/auth/AuthServiceContext";
+import { useAuthService } from "../../../service/auth/useAuthService";
 import { createErrorToast } from "../../../utils/toast/errorToast";
 
 export const GoogleOauthButton: React.FC = () => {
-  const { googleLogin } = useContext(AuthServiceContext);
+  const { googleLogin } = useAuthService();
 
-  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || "";
+  const clientId = import.meta.env.VITE_APP_GOOGLE_CLIENT_ID || "";
 
   return (
     <GoogleLogin
@@ -25,7 +23,7 @@ export const GoogleOauthButton: React.FC = () => {
           onClick={props.onClick}
         >
           <span className="mr-2">
-            <FontAwesomeIcon icon={faGoogle} />
+            <FaGoogle />
           </span>
           <span>Google</span>
         </button>

@@ -24,6 +24,6 @@ export class ReactSingleSelect<T> extends Field<
   > = ({ value, setValue, setTouched }) => ({
     value,
     onChange: setValue,
-    onBlur: () => setTouched()
+    onBlur: () => setTouched(),
   });
 }

@@ -1,28 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import { FaRedo, FaSignOutAlt } from "react-icons/fa";
 
-import { faRedo, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 import gradientImg from "../../assets/images/gradient.jpg";
-import { AuthServiceContext } from "../../service/auth/AuthServiceContext";
-import { WeatherServiceContext } from "../../service/weather/WeatherServiceContext";
+import { useAuthService } from "../../service/auth/useAuthService";
+import { useWeatherService } from "../../service/weather/useWeatherService";
 import { TypedStorage } from "../../utils/typedStorage";
 import { RoundedButton } from "../common/rounded-button/RoundedButton";
 import { CitySearch } from "./CitySearch";
 import { WeatherGrid } from "./WeatherGrid";
 
 export const HomePage = () => {
-  const { clearAuth, auth } = useContext(AuthServiceContext);
-  const {
-    getCities,
-    getCityForecast,
-    clearWeatherInfo,
-    timedRefreshLastCitySearch,
-    weatherForecast,
-    lastCity,
-    lastSearchTime
-  } = useContext(WeatherServiceContext);
-
-  const refreshCitySearch = () => timedRefreshLastCitySearch();
+  const { clearAuth, auth } = useAuthService();
+  const { getCityForecast, clearWeatherInfo, weatherForecast, lastCity } =
+    useWeatherService();
 
   const logout = () => {
     clearWeatherInfo();
@@ -30,12 +21,12 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
-    // TODO: use explicit endpoint to fetch this info
-    const lastCity = auth.city || TypedStorage.citySearch;
-    if (lastCity) {
-      getCityForecast(lastCity);
-    }
-    // eslint-disable-next-line
+    const fetchInitialCityForecast = () => {
+      const lastCity = auth.city || TypedStorage.citySearch;
+      if (lastCity) getCityForecast(lastCity);
+    };
+
+    fetchInitialCityForecast();
   }, []);
 
   return (
@@ -45,20 +36,19 @@ export const HomePage = () => {
           <RoundedButton
             tooltipText={"Refresh"}
             tooltipClassName="ml-4"
-            disabled={!lastSearchTime}
-            onClick={refreshCitySearch}
-            icon={faRedo}
+            onClick={() => getCityForecast(lastCity)}
+            icon={<FaRedo />}
           />
         </div>
         <div className="w-full md:w-1/2">
-          <CitySearch citySearch={getCities} cityForecast={getCityForecast} />
+          <CitySearch cityForecast={getCityForecast} />
         </div>
         <div>
           <RoundedButton
             tooltipText={"Logout"}
             tooltipClassName="-ml-24"
             onClick={logout}
-            icon={faSignOutAlt}
+            icon={<FaSignOutAlt />}
           />
         </div>
       </div>

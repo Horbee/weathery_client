@@ -1,5 +1,6 @@
 import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import { useState } from "react";
+
 
 import { ImageCarousel } from "../common/img-carousel/ImageCarousel";
 import { Modal } from "../common/modal/Modal";

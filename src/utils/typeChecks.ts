@@ -1,4 +1,4 @@
-import { ErrorResponse } from "../models/ErrorResponse";
+import { ErrorResponse } from "../api/models/ErrorResponse";
 import { hasAllKeys } from "./hasAllKeys";
 
 export const isErrorReponse = (data: any) => {

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import React from "react";
 
 interface SingleValueCardProps {
   className: string;
@@ -7,7 +6,7 @@ interface SingleValueCardProps {
 
 export const SingleValueCard: React.FC<SingleValueCardProps> = ({
   children,
-  className
+  className,
 }) => {
   return (
     <motion.div

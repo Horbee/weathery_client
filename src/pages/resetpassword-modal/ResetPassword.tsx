@@ -1,8 +1,8 @@
 import queryString, { ParsedQuery } from "query-string";
-import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import { Routes } from "../../constants/routes";
+import { AppRoutes } from "../../constants/routes";
 import { Modal } from "../common/modal/Modal";
 import { ResetPasswordModalContent } from "./ResetPasswordModalContent";
 
@@ -14,7 +14,7 @@ export const ResetPassword = () => {
   const [modalOpen, setModalOpen] = useState(true);
   const [token, setToken] = useState("");
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const closeModal = () => setModalOpen(false);
@@ -29,7 +29,7 @@ export const ResetPassword = () => {
     <Modal
       isOpen={modalOpen}
       closeFunction={closeModal}
-      onExitComplete={() => history.push(Routes.Start)}
+      onExitComplete={() => navigate(AppRoutes.Start)}
       modalContent={
         <ResetPasswordModalContent closeFunction={closeModal} token={token} />
       }

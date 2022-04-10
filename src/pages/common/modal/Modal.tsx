@@ -1,11 +1,7 @@
 import "./Modal.scss";
 
-import classnames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
-
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaTimes } from "react-icons/fa";
 
 import { modalVariants } from "../variants/framerVariants";
 
@@ -24,7 +20,7 @@ export const Modal: React.FC<ModalProps> = ({
   modalContent,
   onExitComplete,
   containerClassName,
-  containerStyles
+  containerStyles,
 }) => {
   return (
     <AnimatePresence onExitComplete={onExitComplete}>
@@ -38,12 +34,12 @@ export const Modal: React.FC<ModalProps> = ({
           onClick={closeFunction}
         >
           <motion.div
-            className={classnames("modal-content", containerClassName)}
+            className={`modal-content ${containerClassName}`}
             onClick={(e) => e.stopPropagation()}
             style={containerStyles}
           >
             <div className="modal-close" onClick={closeFunction}>
-              <FontAwesomeIcon icon={faTimes} />
+              <FaTimes />
             </div>
             {modalContent}
           </motion.div>

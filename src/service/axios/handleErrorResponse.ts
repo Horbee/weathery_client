@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 
-import { ErrorResponse } from "../../models/ErrorResponse";
+
+import { ErrorResponse } from "../../api/models/ErrorResponse";
 import { createErrorToast } from "../../utils/toast/errorToast";
 import { isErrorReponse } from "../../utils/typeChecks";
 
