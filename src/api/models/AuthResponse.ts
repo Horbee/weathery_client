@@ -1,4 +1,6 @@
+import { UserModel } from "./UserModel";
+
 export interface AuthResponse {
-  success: boolean;
-  data: string;
+  token: string;
+  user: UserModel;
 }
