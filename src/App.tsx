@@ -11,6 +11,8 @@ import { ToastContainer } from "react-toastify";
 import { AppRoutes } from "./constants/routes";
 import { AuthenticatedRoute } from "./custom-components/AuthenticatedRoute";
 import { BackendIndicator } from "./pages/common/backend-indicator/BackendIndicator";
+import { FacebookAuthCallback } from "./pages/facebook-callback/FacebookAuthCallback";
+import { GoogleAuthCallback } from "./pages/google-callback/GoogleAuthCallback";
 import { HomePage } from "./pages/home/HomePage";
 import { ResetPassword } from "./pages/resetpassword-modal/ResetPassword";
 import { StartPage } from "./pages/start/StartPage";
@@ -47,6 +49,14 @@ export const App = () => {
                 <Route
                   path={AppRoutes.ResetPassword}
                   element={<ResetPassword />}
+                />
+                <Route
+                  path={AppRoutes.GoogleAuthCallback}
+                  element={<GoogleAuthCallback />}
+                />
+                <Route
+                  path={AppRoutes.FacebookAuthCallback}
+                  element={<FacebookAuthCallback />}
                 />
               </Routes>
             </StatusServiceProvider>
