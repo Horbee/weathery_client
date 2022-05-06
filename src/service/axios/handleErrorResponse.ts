@@ -12,7 +12,11 @@ export const handleErrorResponse = async (error: AxiosError<ErrorResponse>) => {
     const { data } = response;
     if (isErrorReponse(data)) {
       // custom error from backend
-      createErrorToast(data.error);
+      if (typeof data.error === "string") {
+        createErrorToast(data.error);
+      } else {
+        createErrorToast(Object.values(data.error).flatMap((error) => error));
+      }
     } else {
       // default error
       createErrorToast("An unexpected error occured.");
