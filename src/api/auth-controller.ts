@@ -9,7 +9,7 @@ export const loginWithEmailAndPassword = async (
   password: string
 ): Promise<ApiResponse<AuthResponse>> => {
   const { data } = await axiosInstance.post<ApiResponse<AuthResponse>>(
-    "/api/auth/local",
+    "/auth/local",
     {
       email,
       password,
@@ -25,7 +25,7 @@ export const signupWithEmailAndPassword = async (
   password: string
 ): Promise<ApiResponse<AuthResponse>> => {
   const { data } = await axiosInstance.post<ApiResponse<AuthResponse>>(
-    "/api/auth/local/create",
+    "/auth/local/create",
     {
       email,
       password,
@@ -40,7 +40,7 @@ export const forgotpasswordRequest = async (
   email: string
 ): Promise<ApiResponse<string>> => {
   const { data } = await axiosInstance.post<ApiResponse<string>>(
-    "/api/auth/forgotpassword",
+    "/auth/forgotpassword",
     {
       email,
     }
@@ -53,7 +53,7 @@ export const passwordResetRequest = async (
   token: string
 ): Promise<ApiResponse<string>> => {
   const { data } = await axiosInstance.post<ApiResponse<string>>(
-    `/api/auth/resetpassword?token=${token}`,
+    `/auth/resetpassword?token=${token}`,
     { password }
   );
   return data;
@@ -63,7 +63,7 @@ export const loginWithGoogle = async (
   params: any
 ): Promise<ApiResponse<AuthResponse>> => {
   const { data } = await axiosInstance.get<ApiResponse<AuthResponse>>(
-    "/api/auth/google/callback",
+    "/auth/google/callback",
     { params }
   );
 
@@ -74,7 +74,7 @@ export const loginWithFacebook = async (
   params: any
 ): Promise<ApiResponse<AuthResponse>> => {
   const { data } = await axiosInstance.get<ApiResponse<AuthResponse>>(
-    "/api/auth/facebook/callback",
+    "/auth/facebook/callback",
     { params }
   );
 

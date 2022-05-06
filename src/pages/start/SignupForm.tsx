@@ -18,7 +18,8 @@ export const SignupForm = () => {
     setValues({ password: "", passwordConfirm: "" });
   };
 
-  const handleSubmitFailure = () => createErrorToast(errors.password!);
+  const handleSubmitFailure = () =>
+    createErrorToast(Object.values(errors).flatMap((error) => error));
 
   return (
     <motion.div
@@ -32,7 +33,10 @@ export const SignupForm = () => {
       <p className="text-deepBlue">
         Create a new account and be always up to date with weather informations.
       </p>
-      <form onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}>
+      <form
+        onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}
+        noValidate
+      >
         {/* <!-- Name Field --> */}
         <div className="mt-4">
           <input

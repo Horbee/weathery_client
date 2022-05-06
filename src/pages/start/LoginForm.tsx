@@ -5,6 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 import { loginFormConfig } from "../../form-config/LoginFormConfig";
 import { useAuthService } from "../../service/auth/useAuthService";
+import { createErrorToast } from "../../utils/toast/errorToast";
 import { yFlipVariatons } from "../common/variants/framerVariants";
 
 interface LoginFormProps {
@@ -15,13 +16,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   openForgotPasswordModal,
 }) => {
   const { login, loading } = useAuthService();
-  const { values, fields, handleSubmit, setValues } =
+  const { values, fields, handleSubmit, setValues, errors } =
     useFluentForm(loginFormConfig);
 
   const handleSubmitSuccess = () => {
     login(values.email, values.password);
     setValues({ password: "" });
   };
+
+  const handleSubmitFailure = () =>
+    createErrorToast(Object.values(errors).flatMap((error) => error));
 
   return (
     <motion.div
@@ -35,7 +39,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({
       <p className="text-deepBlue">
         Log in to your account to see the actual weather informations.
       </p>
-      <form onSubmit={handleSubmit(handleSubmitSuccess)} className="mt-16">
+      <form
+        onSubmit={handleSubmit(handleSubmitSuccess, handleSubmitFailure)}
+        className="mt-16"
+        noValidate
+      >
         {/* <!-- Email Field --> */}
         <div className="mt-4">
           <input
