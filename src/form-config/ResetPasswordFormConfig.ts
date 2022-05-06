@@ -10,6 +10,7 @@ export const resetPasswordFormConfig = createForm<ResetPasswordForm>()({
   passwordConfirm: field.password(),
 }).withValidation({
   password: (value: string, values: ResetPasswordForm) => {
+    if (!value) return "Password is required";
     if (value !== values.passwordConfirm) {
       return "Password should match Password Confirm";
     }

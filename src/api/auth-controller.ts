@@ -53,8 +53,8 @@ export const passwordResetRequest = async (
   token: string
 ): Promise<ApiResponse<string>> => {
   const { data } = await axiosInstance.post<ApiResponse<string>>(
-    `/auth/resetpassword?token=${token}`,
-    { password }
+    "/auth/resetpassword",
+    { password, token }
   );
   return data;
 };
