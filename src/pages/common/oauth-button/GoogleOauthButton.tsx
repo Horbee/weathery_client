@@ -4,8 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import { backendURL } from "../../../constants/endpoints";
 
 export const GoogleOauthButton: React.FC = () => {
-  const handleClick = () =>
-    (window.location.href = backendURL("/api/auth/google"));
+  const handleClick = () => (window.location.href = backendURL("/auth/google"));
 
   return (
     <button

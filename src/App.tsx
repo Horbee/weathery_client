@@ -8,13 +8,13 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 
+import { loginWithFacebook, loginWithGoogle } from "./api/auth-controller";
 import { AppRoutes } from "./constants/routes";
 import { AuthenticatedRoute } from "./custom-components/AuthenticatedRoute";
 import { BackendIndicator } from "./pages/common/backend-indicator/BackendIndicator";
-import { FacebookAuthCallback } from "./pages/facebook-callback/FacebookAuthCallback";
-import { GoogleAuthCallback } from "./pages/google-callback/GoogleAuthCallback";
 import { HomePage } from "./pages/home/HomePage";
 import { ResetPassword } from "./pages/resetpassword-modal/ResetPassword";
+import { SocialAuthCallback } from "./pages/social-auth-callback/SocialAuthCallback";
 import { StartPage } from "./pages/start/StartPage";
 import { AuthServiceProvider } from "./service/auth/AuthServiceContext";
 import { StatusServiceProvider } from "./service/status/StatusServiceContext";
@@ -52,11 +52,15 @@ export const App = () => {
                 />
                 <Route
                   path={AppRoutes.GoogleAuthCallback}
-                  element={<GoogleAuthCallback />}
+                  element={
+                    <SocialAuthCallback loginFunction={loginWithGoogle} />
+                  }
                 />
                 <Route
                   path={AppRoutes.FacebookAuthCallback}
-                  element={<FacebookAuthCallback />}
+                  element={
+                    <SocialAuthCallback loginFunction={loginWithFacebook} />
+                  }
                 />
               </Routes>
             </StatusServiceProvider>

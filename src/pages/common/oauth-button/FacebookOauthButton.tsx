@@ -5,7 +5,7 @@ import { backendURL } from "../../../constants/endpoints";
 
 export const FacebookOauthButton: React.FC = () => {
   const handleClick = () =>
-    (window.location.href = backendURL("/api/auth/facebook"));
+    (window.location.href = backendURL("/auth/facebook"));
 
   return (
     <button

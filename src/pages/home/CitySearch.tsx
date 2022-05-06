@@ -3,8 +3,8 @@ import { useFluentForm } from "react-fluent-form";
 import AsyncSelect from "react-select/async";
 
 
+import { searchCityByName } from "../../api/city-controller";
 import { City } from "../../api/models/CitySearchResponse";
-import { searchCityByName } from "../../api/weather-controller";
 import { useDebounce } from "../../custom-components/hooks/useDebounce";
 import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
 
