@@ -33,7 +33,8 @@ export const ResetPasswordModalContent: React.FC<
     }
   };
 
-  const handleSubmitFailure = () => createErrorToast(errors.password!);
+  const handleSubmitFailure = () =>
+    createErrorToast(Object.values(errors).flatMap((e) => e));
 
   return (
     <>

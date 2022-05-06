@@ -1,32 +1,22 @@
-import FacebookLogin from "react-facebook-login";
 import { FaFacebook } from "react-icons/fa";
 
 
-import { useAuthService } from "../../../service/auth/useAuthService";
-import { createErrorToast } from "../../../utils/toast/errorToast";
+import { backendURL } from "../../../constants/endpoints";
 
 export const FacebookOauthButton: React.FC = () => {
-  const { facebookLogin } = useAuthService();
-
-  const appId = import.meta.env.VITE_APP_FACEBOOK_APP_ID || "";
+  const handleClick = () =>
+    (window.location.href = backendURL("/auth/facebook"));
 
   return (
-    <FacebookLogin
-      appId={appId}
-      autoLoad={false}
-      fields="name,email,picture"
-      textButton="Facebook"
-      callback={facebookLogin}
-      onFailure={(error) =>
-        createErrorToast("Error during signin via Facebook")
-      }
-      cssClass="btn btn-wide w-full"
-      icon={
-        <span className="mr-2">
-          <FaFacebook />
-        </span>
-      }
-      containerStyle={{ width: "47%" }}
-    />
+    <button
+      className="btn btn-wide w-full"
+      style={{ width: "47%" }}
+      onClick={handleClick}
+    >
+      <span className="mr-2">
+        <FaFacebook />
+      </span>
+      Facebook
+    </button>
   );
 };

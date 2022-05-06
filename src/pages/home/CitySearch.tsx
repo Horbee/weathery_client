@@ -3,8 +3,8 @@ import { useFluentForm } from "react-fluent-form";
 import AsyncSelect from "react-select/async";
 
 
+import { searchCityByName } from "../../api/city-controller";
 import { City } from "../../api/models/CitySearchResponse";
-import { searchCityByName } from "../../api/weather-controller";
 import { useDebounce } from "../../custom-components/hooks/useDebounce";
 import { citySearchFormConfig } from "../../form-config/CitySearchFormConfig";
 
@@ -17,10 +17,12 @@ interface CitySearchProps {
 export const CitySearch: React.FC<CitySearchProps> = ({ cityForecast }) => {
   const { values, fields, handleSubmit } = useFluentForm(citySearchFormConfig);
 
+  // When enter is pressed (submit)
   const handleSubmitSuccess = async () => {
     await cityForecast(values.city!);
   };
 
+  // When option is selected by mouse click
   useEffect(() => {
     if (values.city) {
       handleSubmitSuccess();

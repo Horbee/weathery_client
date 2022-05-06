@@ -1,12 +1,11 @@
 import { isFuture } from "date-fns";
 import jwt_decode from "jwt-decode";
 import { createContext, FC, useEffect, useState } from "react";
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from "react-google-login";
 
 
 import {
-    forgotpasswordRequest, loginWithEmailAndPassword, loginWithFacebook, loginWithGoogle,
-    passwordResetRequest, signupWithEmailAndPassword
+    forgotpasswordRequest, loginWithEmailAndPassword, passwordResetRequest,
+    signupWithEmailAndPassword
 } from "../../api/auth-controller";
 import { City } from "../../api/models/CitySearchResponse";
 import { AccessTokenProps } from "../../api/models/TokenResponse";
@@ -19,14 +18,11 @@ import { TypedStorage } from "../../utils/typedStorage";
 type AuthServiceContextType = {
   auth: UserData;
   login: (email: string, password: string) => Promise<void>;
-  googleLogin: (
-    googleLoginResponse: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) => Promise<void>;
-  facebookLogin: (facebookLoginResponse: any) => Promise<void>;
   clearAuth: () => void;
   signup: (name: string, email: string, password: string) => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   resetPassword: (password: string, token: string) => Promise<boolean>;
+  setupAuth: (token: string) => void;
   checkInitialAuthState: boolean;
   loading: boolean;
 };
@@ -60,7 +56,9 @@ export const AuthServiceProvider: FC = ({ children }) => {
     setLoading(true);
 
     try {
-      const { data: token } = await loginWithEmailAndPassword(email, password);
+      const {
+        data: { token },
+      } = await loginWithEmailAndPassword(email, password);
       const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.username = email;
       TypedStorage.accessToken = token;
@@ -79,11 +77,9 @@ export const AuthServiceProvider: FC = ({ children }) => {
     setLoading(true);
 
     try {
-      const { data: token } = await signupWithEmailAndPassword(
-        name,
-        email,
-        password
-      );
+      const {
+        data: { token },
+      } = await signupWithEmailAndPassword(name, email, password);
       const decoded = jwt_decode(token) as AccessTokenProps;
       TypedStorage.username = email;
       TypedStorage.accessToken = token;
@@ -153,47 +149,15 @@ export const AuthServiceProvider: FC = ({ children }) => {
     }
   };
 
-  const googleLogin = async (
-    googleResponse: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) => {
-    const idToken = (googleResponse as GoogleLoginResponse).tokenObj.id_token;
-    const email = (googleResponse as GoogleLoginResponse).profileObj.email;
-    const name = (googleResponse as GoogleLoginResponse).profileObj.name;
-
-    try {
-      const { data: token } = await loginWithGoogle(name, email, idToken);
-      const decoded = jwt_decode(token) as AccessTokenProps;
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
-      setAuth({
-        isLoggedIn: true,
-        accessToken: token,
-        city: decoded.user.city ?? null,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const facebookLogin = async (
-    facebookResponse: any /*FacebookLoginResponse*/
-  ) => {
-    setLoading(true);
-    const { accessToken, email, name } = facebookResponse;
-
-    try {
-      const { data: token } = await loginWithFacebook(name, email, accessToken);
-      const decoded = jwt_decode(token) as AccessTokenProps;
-      TypedStorage.accessToken = token;
-      TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
-      setAuth({
-        isLoggedIn: true,
-        accessToken: token,
-        city: decoded.user.city ?? null,
-      });
-    } finally {
-      setLoading(false);
-    }
+  const setupAuth = (token: string) => {
+    const decoded = jwt_decode(token) as AccessTokenProps;
+    TypedStorage.accessToken = token;
+    TypedStorage.tokenExpirationDate = new Date(decoded.exp * 1000);
+    setAuth({
+      isLoggedIn: true,
+      accessToken: token,
+      city: decoded.user.city ?? null,
+    });
   };
 
   return (
@@ -201,12 +165,11 @@ export const AuthServiceProvider: FC = ({ children }) => {
       value={{
         auth,
         login,
-        googleLogin,
-        facebookLogin,
         clearAuth,
         signup,
         forgotPassword,
         resetPassword,
+        setupAuth,
         checkInitialAuthState,
         loading,
       }}

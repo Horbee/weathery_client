@@ -1,14 +1,20 @@
 import { axiosInstance } from "../service/axios/axiosIstance";
+import { ApiResponse } from "./models/ApiResponse";
 import { AuthResponse } from "./models/AuthResponse";
+
+// TODO: integrate OpenAPI generator
 
 export const loginWithEmailAndPassword = async (
   email: string,
   password: string
-): Promise<AuthResponse> => {
-  const { data } = await axiosInstance.post<AuthResponse>("/api/auth/login", {
-    email,
-    password,
-  });
+): Promise<ApiResponse<AuthResponse>> => {
+  const { data } = await axiosInstance.post<ApiResponse<AuthResponse>>(
+    "/auth/local",
+    {
+      email,
+      password,
+    }
+  );
 
   return data;
 };
@@ -17,21 +23,24 @@ export const signupWithEmailAndPassword = async (
   name: string,
   email: string,
   password: string
-): Promise<AuthResponse> => {
-  const { data } = await axiosInstance.post<AuthResponse>("/api/auth", {
-    email,
-    password,
-    name,
-  });
+): Promise<ApiResponse<AuthResponse>> => {
+  const { data } = await axiosInstance.post<ApiResponse<AuthResponse>>(
+    "/auth/local/create",
+    {
+      email,
+      password,
+      name,
+    }
+  );
 
   return data;
 };
 
 export const forgotpasswordRequest = async (
   email: string
-): Promise<AuthResponse> => {
-  const { data } = await axiosInstance.post<AuthResponse>(
-    "/api/auth/forgotpassword",
+): Promise<ApiResponse<string>> => {
+  const { data } = await axiosInstance.post<ApiResponse<string>>(
+    "/auth/forgotpassword",
     {
       email,
     }
@@ -42,40 +51,31 @@ export const forgotpasswordRequest = async (
 export const passwordResetRequest = async (
   password: string,
   token: string
-): Promise<AuthResponse> => {
-  const { data } = await axiosInstance.post<AuthResponse>(
-    `/api/auth/resetpassword?token=${token}`,
-    { password }
+): Promise<ApiResponse<string>> => {
+  const { data } = await axiosInstance.post<ApiResponse<string>>(
+    "/auth/resetpassword",
+    { password, token }
   );
   return data;
 };
 
 export const loginWithGoogle = async (
-  name: string,
-  email: string,
-  idToken: string
-): Promise<AuthResponse> => {
-  const { data } = await axiosInstance.post<AuthResponse>("/api/oauth/google", {
-    email,
-    name,
-    idToken,
-  });
+  params: any
+): Promise<ApiResponse<AuthResponse>> => {
+  const { data } = await axiosInstance.get<ApiResponse<AuthResponse>>(
+    "/auth/google/callback",
+    { params }
+  );
 
   return data;
 };
 
 export const loginWithFacebook = async (
-  name: string,
-  email: string,
-  accessToken: string
-): Promise<AuthResponse> => {
-  const { data } = await axiosInstance.post<AuthResponse>(
-    "/api/oauth/facebook",
-    {
-      email,
-      name,
-      accessToken,
-    }
+  params: any
+): Promise<ApiResponse<AuthResponse>> => {
+  const { data } = await axiosInstance.get<ApiResponse<AuthResponse>>(
+    "/auth/facebook/callback",
+    { params }
   );
 
   return data;

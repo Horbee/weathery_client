@@ -4,4 +4,4 @@ export const openWeatherMapIconURL = (icon: string) =>
 export const backendURL = (url: string) => apiBaseUrl + url;
 
 export const apiBaseUrl =
-  import.meta.env.VITE_APP_API_URL || "http://localhost:5000";
+  import.meta.env.VITE_APP_API_URL || "http://localhost:5000/api/v1";
