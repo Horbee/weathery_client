@@ -26,8 +26,8 @@ export const WeatherServiceProvider: FC = ({ children }) => {
   const getCityForecast = async (city: Nullable<City> = lastCity) => {
     if (!city) return;
 
-    const response = await getForecastByCity(city);
-    setWeatherForecast(response.forecast);
+    const { data } = await getForecastByCity(city);
+    setWeatherForecast(data.forecast);
     setLastCity(city);
     TypedStorage.citySearch = city;
   };

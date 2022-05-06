@@ -80,7 +80,6 @@ export interface Precipitation {
 }
 
 export interface ForecastResponse {
-  success: boolean;
   cityName: string;
   forecast: Forecast;
 }

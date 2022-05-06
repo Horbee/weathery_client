@@ -17,10 +17,12 @@ interface CitySearchProps {
 export const CitySearch: React.FC<CitySearchProps> = ({ cityForecast }) => {
   const { values, fields, handleSubmit } = useFluentForm(citySearchFormConfig);
 
+  // When enter is pressed (submit)
   const handleSubmitSuccess = async () => {
     await cityForecast(values.city!);
   };
 
+  // When option is selected by mouse click
   useEffect(() => {
     if (values.city) {
       handleSubmitSuccess();
