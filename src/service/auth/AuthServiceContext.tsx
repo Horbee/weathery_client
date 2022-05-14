@@ -6,7 +6,7 @@ import { createContext, FC, useEffect, useState } from "react";
 import {
     forgotpasswordRequest, loginWithEmailAndPassword, passwordResetRequest,
     signupWithEmailAndPassword
-} from "../../api/auth-controller";
+} from "../../api/controllers/auth-controller";
 import { City } from "../../api/models/CitySearchResponse";
 import { AccessTokenProps } from "../../api/models/TokenResponse";
 import { CITYSEARCH } from "../../constants/localstorage";

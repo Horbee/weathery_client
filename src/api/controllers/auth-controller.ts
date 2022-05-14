@@ -1,6 +1,6 @@
-import { axiosInstance } from "../service/axios/axiosIstance";
-import { ApiResponse } from "./models/ApiResponse";
-import { AuthResponse } from "./models/AuthResponse";
+import { axiosInstance } from "../../service/axios/axiosIstance";
+import { ApiResponse } from "../models/ApiResponse";
+import { AuthResponse } from "../models/AuthResponse";
 
 // TODO: integrate OpenAPI generator
 

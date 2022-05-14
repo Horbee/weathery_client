@@ -1,9 +1,9 @@
 import { createContext, FC, useState } from "react";
 
 
+import { getForecastByCity } from "../../api/controllers/weather-controller";
 import { City } from "../../api/models/CitySearchResponse";
 import { Forecast } from "../../api/models/ForecastResponse";
-import { getForecastByCity } from "../../api/weather-controller";
 import { Nullable } from "../../utils/Nullable";
 import { TypedStorage } from "../../utils/typedStorage";
 

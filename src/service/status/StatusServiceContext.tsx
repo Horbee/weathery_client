@@ -1,7 +1,7 @@
 import { createContext, FC, useMemo, useState } from "react";
 
 
-import { getBackendStatus } from "../../api/health-controller";
+import { getBackendStatus } from "../../api/controllers/health-controller";
 import { Status } from "../../api/models/StatusResponse";
 import { Nullable } from "../../utils/Nullable";
 

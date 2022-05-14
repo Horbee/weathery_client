@@ -1,7 +1,7 @@
-import { axiosInstance } from "../service/axios/axiosIstance";
-import { ApiResponse } from "./models/ApiResponse";
-import { City } from "./models/CitySearchResponse";
-import { ForecastResponse } from "./models/ForecastResponse";
+import { axiosInstance } from "../../service/axios/axiosIstance";
+import { ApiResponse } from "../models/ApiResponse";
+import { City } from "../models/CitySearchResponse";
+import { ForecastResponse } from "../models/ForecastResponse";
 
 export const getForecastByCity = async (
   city: City

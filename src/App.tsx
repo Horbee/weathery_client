@@ -8,7 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 
-import { loginWithFacebook, loginWithGoogle } from "./api/auth-controller";
+import { loginWithFacebook, loginWithGoogle } from "./api/controllers/auth-controller";
 import { AppRoutes } from "./constants/routes";
 import { AuthenticatedRoute } from "./custom-components/AuthenticatedRoute";
 import { BackendIndicator } from "./pages/common/backend-indicator/BackendIndicator";
